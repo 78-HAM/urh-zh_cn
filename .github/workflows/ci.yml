@@ -55,7 +55,8 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          Invoke-WebRequest 'https://github.com/jopohl/sdrbuild/releases/download/v1.1/win-x64.zip' -OutFile windrivers.zip
+          curl.exe --fail --location --retry 5 --retry-all-errors --retry-delay 5 'https://github.com/jopohl/sdrbuild/releases/download/v1.1/win-x64.zip' --output windrivers.zip
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           New-Item -ItemType Directory -Force src/urh/dev/native/lib/shared
           Expand-Archive windrivers.zip src/urh/dev/native/lib/shared
       - name: Install Python dependencies
