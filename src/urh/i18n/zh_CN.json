@@ -1,7 +1,7 @@
 {
   "Search": "搜索",
   "Select all": "全选",
-  "Filter": "滤波",
+  "Filter": "筛选",
   "Align": "对齐",
   "Assign participants": "分配参与者",
   "Assign message type": "分配消息类型",
@@ -898,5 +898,11 @@
   "<html><head/><body><p>Open <a href=\"open_proto_sniffer\"><span style=\" text-decoration: underline; color:#0000ff;\">protocol sniffer</span></a> (<span style=\" font-style:italic;\">File -&gt; Sniff protocol...</span>) to use it.</p></body></html>": "<html><body><p>打开<a href=\"open_proto_sniffer\">协议嗅探器</a>（<b>文件 → 嗅探协议…</b>）以使用此功能。</p></body></html>",
   "<html><head/><body><p>This is the TCP port number URH listens on. Your external TCP application can connect and send data to this port, <span style=\" font-weight:600;\">while</span><span style=\" font-weight:600;\">receiving is active </span>in URH.</p></body></html>": "<html><body><p>URH 监听的 TCP 端口。在 URH <b>接收期间</b>，外部应用可连接此端口并发送数据。</p></body></html>",
   "<html><head/><body><p>This is the IP address URH listens on, 127.0.0.1 will work in most cases. Your external TCP application can connect and send data to this address, <span style=\" font-weight:600;\">while receiving is active </span>in URH.</p></body></html>": "<html><body><p>URH 监听的 IP 地址，通常使用 127.0.0.1。在 URH <b>接收期间</b>，外部应用可连接此地址并发送数据。</p></body></html>",
-  "Edit all": "编辑全部"
+  "Edit all": "编辑全部",
+  "This plugin adds support for saving as a Flipper Zero SubGHz (.sub) protocol in Generator.\n": "此插件支持在信号生成选项卡中，将协议保存为 Flipper Zero SubGHz（.sub）文件。",
+  "This plugin enables you to insert custom sine waves into your signal.\nYou will find a new context menu entry in interpretation signal view.\nTransform URH into a full fledged signal editor!": "此插件可向信号中插入自定义正弦波。\n信号解析视图的右键菜单中会新增对应操作，可用于编辑信号。",
+  "This plugin enables you to break a protocol message on an arbitrary position.\nThis is helpful when you have redundancy in your messages.\n\nAfter enabling this plugin you will see a new action in the context menu of the message table in Analysis.\nNote, this action is only available if you select a SINGLE message.\nIf you select multiple messages, the action will not appear in the context menu.": "此插件可在任意位置分割协议消息，适合含有冗余数据的消息。\n\n启用后，协议分析消息表格的右键菜单会新增操作。只有选择一条消息时才显示；选择多条消息时不显示。",
+  "With this plugin you can interface external applications using TCP.\nYou can use your external application for performing protocol simulation on logical level or advanced modulation/decoding.\nIf you activate this plugin, a new SDR will be selectable in protocol sniffer dialog.\nFurthermore, a new button below generator table will be created.": "此插件可通过 TCP 连接外部应用，用于逻辑层协议仿真或高级调制/解码。\n启用后，协议嗅探器中会新增网络 SDR，生成表格下方也会新增发送按钮。",
+  "With this plugin we support sending bytestreams via RfCat (e.g. using YARD Stick One).\nTherefore a new button below generator table will be created.\n": "此插件支持通过 RfCat（例如使用 YARD Stick One）发送字节流，生成表格下方会新增发送按钮。",
+  "This plugin allows you to entirely crop long sequences of zeros in your protocol and focus on relevant data.\nYou can set a threshold below. All sequences of directly following zeros, which are longer than this threshold will be removed.": "此插件可移除协议中的长零序列，以便查看有效数据。\n设置下方阈值后，超过此长度的连续零位序列将被移除。"
 }

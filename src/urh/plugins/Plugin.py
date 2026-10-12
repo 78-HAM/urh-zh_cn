@@ -6,6 +6,7 @@ from PyQt6.QtCore import QObject, pyqtSignal, Qt, QSettings
 from PyQt6.QtGui import QUndoCommand, QUndoStack
 
 from urh.util.Logger import logger
+from urh.i18n import tr
 
 
 class Plugin(QObject):
@@ -50,8 +51,8 @@ class Plugin(QObject):
     def load_description(self):
         descr_file = os.path.join(self.plugin_path, "descr.txt")
         try:
-            with open(descr_file, "r") as f:
-                self.description = f.read()
+            with open(descr_file, "r", encoding="utf-8") as f:
+                self.description = tr(f.read())
         except Exception as e:
             print(e)
 

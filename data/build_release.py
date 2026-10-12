@@ -94,4 +94,15 @@ elif sys.platform == "darwin":
     plist["NSMicrophoneUsageDescription"] = "URH 需要访问麦克风，通过声卡采集信号。"
     with plist_file.open("wb") as handle:
         plistlib.dump(plist, handle)
+    subprocess.run(
+        [
+            "codesign",
+            "--force",
+            "--deep",
+            "--sign",
+            "-",
+            str(root / "pyinstaller/urh.app"),
+        ],
+        check=True,
+    )
 print("Standalone builds completed.")

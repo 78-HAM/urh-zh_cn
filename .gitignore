@@ -63,6 +63,7 @@ urh_debug_build/
 urh_cli_build/
 urh.spec
 urh_debug.spec
+urh_gui.spec
 urh_cli.spec
 src/urh/dev/native/lib/shared/
 windrivers.zip
