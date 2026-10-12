@@ -14,7 +14,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from PyQt6.QtCore import Qt, QSettings
 from PyQt6.QtWidgets import QApplication
 
-from urh import settings
 from urh.i18n import ChineseTranslator, install_translators, tr
 
 
@@ -34,6 +33,8 @@ def main():
     QSettings.setPath(
         QSettings.Format.IniFormat, QSettings.Scope.UserScope, test_dir.name
     )
+    from urh import settings
+
     app = QApplication([])
     translator = ChineseTranslator()
     for source, target in translator.messages.items():
