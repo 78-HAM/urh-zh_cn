@@ -514,6 +514,12 @@ def create_parser():
 
 
 def main():
+    if sys.platform == "win32":
+        # Frozen apps use the console encoding; GBK cannot represent all units.
+        for stream in (sys.stdout, sys.stderr):
+            if hasattr(stream, "reconfigure"):
+                stream.reconfigure(errors="backslashreplace")
+
     def get_val(value, project_params: dict, project_param_key: str, default):
         if value is not None:
             return value
