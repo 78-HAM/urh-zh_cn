@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import os
 
 from PyQt6.QtCore import QRegularExpression, Qt
@@ -51,8 +52,8 @@ class ProjectDialog(QDialog):
 
             self.ui.btnSelectPath.hide()
             self.ui.lineEdit_Path.setDisabled(True)
-            self.setWindowTitle("Edit project settings")
-            self.ui.lNewProject.setText("Edit project")
+            self.setWindowTitle(tr("Edit project settings"))
+            self.ui.lNewProject.setText(tr("Edit project"))
 
         self.ui.tblParticipants.setModel(self.participant_table_model)
         self.participant_table_model.update()

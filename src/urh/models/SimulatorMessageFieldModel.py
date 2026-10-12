@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import QAbstractTableModel, Qt, QModelIndex, pyqtSignal
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QApplication
@@ -37,7 +38,7 @@ class SimulatorMessageFieldModel(QAbstractTableModel):
             role == Qt.ItemDataRole.DisplayRole
             and orientation == Qt.Orientation.Horizontal
         ):
-            return self.header_labels[section]
+            return tr(self.header_labels[section])
         elif role == Qt.ItemDataRole.TextAlignmentRole:
             return Qt.AlignmentFlag.AlignLeft
 
@@ -51,12 +52,12 @@ class SimulatorMessageFieldModel(QAbstractTableModel):
             if j == 0:
                 return lbl.name
             elif j == 1:
-                return ProtocolLabel.DISPLAY_FORMATS[lbl.display_format_index]
+                return tr(ProtocolLabel.DISPLAY_FORMATS[lbl.display_format_index])
             elif j == 2:
                 if lbl.is_checksum_label:
-                    return "Checksum"
+                    return tr("Checksum")
                 else:
-                    return lbl.VALUE_TYPES[lbl.value_type_index]
+                    return tr(lbl.VALUE_TYPES[lbl.value_type_index])
             elif j == 3:
                 if lbl.value_type_index == 0:
                     message = lbl.parent()

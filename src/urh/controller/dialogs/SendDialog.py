@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import Qt, pyqtSlot
 from PyQt6.QtGui import QBrush, QColor, QIcon, QPen
 from PyQt6.QtWidgets import QMessageBox
@@ -35,10 +36,10 @@ class SendDialog(SendRecvDialog):
         self.hide_receive_ui_items()
 
         self.ui.btnStart.setIcon(QIcon.fromTheme("media-playback-start"))
-        self.setWindowTitle("Send Signal")
+        self.setWindowTitle(tr("Send Signal"))
         self.setWindowIcon(QIcon.fromTheme("media-playback-start"))
-        self.ui.btnStart.setToolTip("Send data")
-        self.ui.btnStop.setToolTip("Stop sending")
+        self.ui.btnStart.setToolTip(tr("Send data"))
+        self.ui.btnStop.setToolTip(tr("Stop sending"))
         self.device_is_sending = False
         self.modulation_msg_indices = modulation_msg_indices
 
@@ -111,7 +112,7 @@ class SendDialog(SendRecvDialog):
                 )
             else:
                 self.ui.btnStop.click()
-                self.ui.lblCurrentRepeatValue.setText("Sending finished")
+                self.ui.lblCurrentRepeatValue.setText(tr("Sending finished"))
 
     def init_device(self):
         device_name = self.selected_device_name
@@ -171,8 +172,8 @@ class SendDialog(SendRecvDialog):
     def on_device_stopped(self):
         super().on_device_stopped()
         self.ui.btnStart.setIcon(QIcon.fromTheme("media-playback-start"))
-        self.ui.btnStart.setText("Start")
-        self.ui.btnStart.setToolTip("Start sending")
+        self.ui.btnStart.setText(tr("Start"))
+        self.ui.btnStart.setToolTip(tr("Start sending"))
         self.device_is_sending = False
 
     @pyqtSlot()
@@ -181,7 +182,7 @@ class SendDialog(SendRecvDialog):
         self.device_is_sending = True
         self.ui.btnStart.setEnabled(True)
         self.ui.btnStart.setIcon(QIcon.fromTheme("media-playback-pause"))
-        self.ui.btnStart.setText("Pause")
+        self.ui.btnStart.setText(tr("Pause"))
         self.set_device_ui_items_enabled(False)
 
     @pyqtSlot()

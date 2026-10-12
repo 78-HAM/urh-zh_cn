@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 from PyQt6.QtGui import QUndoCommand
@@ -37,7 +38,7 @@ class DeleteBitsAndPauses(QUndoCommand):
         for sub_protocol in self.sub_protocols:
             self.sub_protocol_history[sub_protocol] = sub_protocol.messages
 
-        self.setText("Delete")
+        self.setText(tr("Delete"))
 
     def redo(self):
         self.saved_messages = copy.deepcopy(

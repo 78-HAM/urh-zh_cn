@@ -1,3 +1,5 @@
+from urh.i18n import tr
+from urh.i18n import tr
 import numpy
 from PyQt6.QtCore import QItemSelection, pyqtSlot
 from PyQt6.QtCore import pyqtSignal, Qt
@@ -36,7 +38,7 @@ class ProtocolTableView(TableView):
         )
         self.ref_message_action.triggered.connect(self.set_ref_message)
 
-        self.hide_row_action = QAction("Hide selected rows", self)
+        self.hide_row_action = QAction(tr("Hide selected rows"), self)
         self.hide_row_action.setShortcut(QKeySequence("H"))
         self.hide_row_action.setShortcutContext(
             Qt.ShortcutContext.WidgetWithChildrenShortcut
@@ -121,7 +123,7 @@ class ProtocolTableView(TableView):
             self.message_type_actions[action] = message_type
             action.triggered.connect(self.on_message_type_action_triggered)
 
-        new_message_type_action = message_type_menu.addAction("Create new")
+        new_message_type_action = message_type_menu.addAction(tr("Create new"))
         new_message_type_action.setIcon(QIcon.fromTheme("list-add"))
         new_message_type_action.triggered.connect(
             self.on_new_message_type_action_triggered
@@ -141,7 +143,7 @@ class ProtocolTableView(TableView):
                 participant_menu_str += " (" + selected_participant.name + ")"
 
             participant_menu = menu.addMenu(participant_menu_str)
-            none_participant_action = participant_menu.addAction("None")
+            none_participant_action = participant_menu.addAction(tr("None"))
             none_participant_action.setCheckable(True)
             none_participant_action.setActionGroup(participant_group)
             none_participant_action.triggered.connect(
@@ -172,7 +174,7 @@ class ProtocolTableView(TableView):
         hidden_rows = self.model().hidden_rows
         if len(hidden_rows) > 0:
             show_row_action = menu.addAction(
-                self.tr("Show all rows (reset {0:d} hidden)".format(len(hidden_rows)))
+                self.tr("Show all rows (reset {0:d} hidden)").format(len(hidden_rows))
             )
             show_row_action.triggered.connect(self.on_show_row_action_triggered)
 

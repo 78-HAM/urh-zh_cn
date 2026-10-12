@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import math
 
 from PyQt6.QtCore import Qt, pyqtSlot
@@ -24,10 +25,10 @@ class ModulationParametersDialog(QDialog):
                 1, KillerSpinBoxDelegate(-1e12, 1e12, self)
             )
             self.ui.tblSymbolParameters.horizontalHeaderItem(1).setText(
-                "Frequency in Hz"
+                tr("Frequency in Hz")
             )
         elif "ASK" in modulation_type:
-            self.ui.tblSymbolParameters.horizontalHeaderItem(1).setText("Amplitude")
+            self.ui.tblSymbolParameters.horizontalHeaderItem(1).setText(tr("Amplitude"))
             self.ui.tblSymbolParameters.setItemDelegateForColumn(
                 1, SpinBoxDelegate(0, 100, self, "%")
             )
@@ -35,7 +36,7 @@ class ModulationParametersDialog(QDialog):
             self.ui.tblSymbolParameters.setItemDelegateForColumn(
                 1, SpinBoxDelegate(-360, 360, self, "°")
             )
-            self.ui.tblSymbolParameters.horizontalHeaderItem(1).setText("Phase")
+            self.ui.tblSymbolParameters.horizontalHeaderItem(1).setText(tr("Phase"))
 
         fmt = "{0:0" + str(self.num_bits) + "b}"
         self.ui.tblSymbolParameters.setRowCount(len(parameters))

@@ -1,3 +1,5 @@
+from urh.i18n import tr
+from urh.i18n import tr
 from collections import OrderedDict
 
 from PyQt6.QtCore import pyqtSlot, pyqtSignal, Qt
@@ -44,7 +46,7 @@ class LabelValueTableView(QTableView):
 
         self.setItemDelegateForColumn(3, SectionComboBoxDelegate(orders, parent=self))
 
-        self.del_rows_action = QAction("Delete selected labels", self)
+        self.del_rows_action = QAction(tr("Delete selected labels"), self)
         self.del_rows_action.setShortcut(QKeySequence.StandardKey.Delete)
         self.del_rows_action.setIcon(QIcon.fromTheme("edit-delete"))
         self.del_rows_action.setShortcutContext(
@@ -85,7 +87,7 @@ class LabelValueTableView(QTableView):
 
             menu.addAction(self.del_rows_action)
         menu.addSeparator()
-        configure_field_types_action = menu.addAction("Configure field types...")
+        configure_field_types_action = menu.addAction(tr("Configure field types..."))
         configure_field_types_action.triggered.connect(
             self.configure_field_types_action_triggered.emit
         )

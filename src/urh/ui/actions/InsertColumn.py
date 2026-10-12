@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 from PyQt6.QtGui import QUndoCommand
@@ -19,7 +20,7 @@ class InsertColumn(QUndoCommand):
 
         self.saved_messages = {}
 
-        self.setText("Insert column at {0:d}".format(index))
+        self.setText(tr("Insert column at {0:d}").format(index))
 
     def redo(self):
         for i in self.rows:

@@ -85,7 +85,7 @@ def get_packages():
 
 
 def get_package_data():
-    package_data = {"urh.cythonext": ["*.pyx", "*.pxd"]}
+    package_data = {"urh.cythonext": ["*.pyx", "*.pxd"], "urh.i18n": ["*.json"]}
     for plugin in PLUGINS:
         package_data["urh.plugins." + plugin] = ["*.ui", "*.txt"]
 
@@ -135,7 +135,7 @@ def get_extensions():
 
 def read_long_description():
     try:
-        with open("README.md") as f:
+        with open("README.md", encoding="utf-8") as f:
             text = f.read()
         return text
     except:

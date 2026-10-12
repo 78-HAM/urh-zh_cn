@@ -1,3 +1,5 @@
+from urh.i18n import tr
+from urh.i18n import tr
 import numpy as np
 from PyQt6.QtCore import Qt, QItemSelectionModel, QItemSelection, pyqtSlot, pyqtSignal
 from PyQt6.QtGui import (
@@ -20,7 +22,7 @@ class TableView(QTableView):
 
         self.context_menu_pos = None  # type: QPoint
 
-        self.copy_action = QAction("Copy selection", self)
+        self.copy_action = QAction(tr("Copy selection"), self)
         self.copy_action.setShortcut(QKeySequence.StandardKey.Copy)
         self.copy_action.setIcon(QIcon.fromTheme("edit-copy"))
         self.copy_action.triggered.connect(self.on_copy_action_triggered)
@@ -67,14 +69,14 @@ class TableView(QTableView):
     def _add_insert_column_menu(self, menu):
         column_menu = menu.addMenu("Insert column")
 
-        insert_column_left_action = column_menu.addAction("on the left")
+        insert_column_left_action = column_menu.addAction(tr("on the left"))
         insert_column_left_action.triggered.connect(
             self.on_insert_column_left_action_triggered
         )
         insert_column_left_action.setIcon(
             QIcon.fromTheme("edit-table-insert-column-left")
         )
-        insert_column_right_action = column_menu.addAction("on the right")
+        insert_column_right_action = column_menu.addAction(tr("on the right"))
         insert_column_right_action.setIcon(
             QIcon.fromTheme("edit-table-insert-column-right")
         )
@@ -158,10 +160,10 @@ class TableView(QTableView):
 
         if self.model().row_count > 0:
             if selected_label_index == -1:
-                label_action = menu.addAction("Create label...")
+                label_action = menu.addAction(tr("Create label..."))
                 label_action.setIcon(QIcon.fromTheme("list-add"))
             else:
-                label_action = menu.addAction("Edit label...")
+                label_action = menu.addAction(tr("Edit label..."))
                 label_action.setIcon(QIcon.fromTheme("configure"))
 
             label_action.triggered.connect(

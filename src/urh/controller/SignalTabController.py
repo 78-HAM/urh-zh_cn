@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import QPoint, pyqtSignal, pyqtSlot
 from PyQt6.QtWidgets import QWidget, QSizePolicy, QCheckBox, QMessageBox
 from PyQt6.QtGui import QUndoStack
@@ -135,7 +136,7 @@ class SignalTabController(QWidget):
 
     def set_frame_numbers(self):
         for i, f in enumerate(self.signal_frames):
-            f.ui.lSignalNr.setText("{0:d}:".format(i + 1))
+            f.ui.lSignalNr.setText(tr("{0:d}:").format(i + 1))
 
     @pyqtSlot()
     def save_all(self):

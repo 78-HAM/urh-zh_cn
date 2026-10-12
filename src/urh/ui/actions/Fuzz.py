@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtGui import QUndoCommand
 
 from urh import settings
@@ -12,7 +13,7 @@ class Fuzz(QUndoCommand):
         self.proto_analyzer_container = proto_analyzer_container
         self.fuz_mode = fuz_mode
 
-        self.setText("{0} Fuzzing".format(self.fuz_mode))
+        self.setText(tr("{0} Fuzzing").format(tr(self.fuz_mode)))
         self.added_message_indices = []
 
     def redo(self):

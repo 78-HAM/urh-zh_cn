@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import numpy as np
 from PyQt6.QtCore import QRectF, QLineF, QPointF, Qt
 from PyQt6.QtGui import QPainter, QFont, QFontMetrics, QPen, QTransform, QBrush
@@ -110,7 +111,7 @@ class GridScene(ZoomableScene):
             QTransform.fromScale(scale_x, scale_y), False
         )
         self.frequency_marker[1].setText(
-            "Tune to " + Formatter.big_value_with_suffix(frequency, decimals=3)
+            tr("Tune to ") + Formatter.big_value_with_suffix(frequency, decimals=3)
         )
         font_metric = QFontMetrics(self.frequency_marker[1].font())
         text_width = font_metric.horizontalAdvance("Tune to") * scale_x

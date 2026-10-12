@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSlot
 from PyQt6.QtGui import QCloseEvent
 
@@ -48,8 +49,8 @@ class ContinuousSendDialog(SendDialog):
         self.graphics_view.setScene(self.scene_manager.scene)
         self.graphics_view.scene_manager = self.scene_manager
 
-        self.setWindowTitle("Send Signal (continuous mode)")
-        self.ui.lSamplesSentText.setText("Progress:")
+        self.setWindowTitle(tr("Send Signal (continuous mode)"))
+        self.ui.lSamplesSentText.setText(tr("Progress:"))
 
         self.create_connects()
         self.device_settings_widget.update_for_new_device(overwrite_settings=False)
@@ -137,5 +138,7 @@ class ContinuousSendDialog(SendDialog):
 
             self._create_device_connects()
         except ValueError as e:
-            self.ui.txtEditErrors.setText("<font color='red'>" + str(e) + "<font>")
+            self.ui.txtEditErrors.setText(
+                tr("<font color='red'>") + str(e) + tr("<font>")
+            )
             self.ui.btnStart.setEnabled(False)

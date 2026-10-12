@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import time
 
 import numpy as np
@@ -320,7 +321,7 @@ class SimulatorDialog(QDialog):
         self.reset()
         self.timer.start(self.update_interval)
         self.ui.btnStartStop.setIcon(QIcon.fromTheme("media-playback-stop"))
-        self.ui.btnStartStop.setText("Stop")
+        self.ui.btnStartStop.setText(tr("Stop"))
 
         if not self.rx_needed:
             return
@@ -353,7 +354,7 @@ class SimulatorDialog(QDialog):
         self.timer.stop()
         self.update_view()
         self.ui.btnStartStop.setIcon(QIcon.fromTheme("media-playback-start"))
-        self.ui.btnStartStop.setText("Start")
+        self.ui.btnStartStop.setText(tr("Start"))
         self.ui.checkBoxCaptureFullRX.setEnabled(True)
 
     @pyqtSlot()
@@ -371,7 +372,7 @@ class SimulatorDialog(QDialog):
     @pyqtSlot()
     def on_btn_save_log_clicked(self):
         file_path = QFileDialog.getSaveFileName(
-            self, "Save log", "", "Log file (*.log)"
+            self, tr("Save log"), "", "Log file (*.log)"
         )
 
         if file_path[0] == "":
@@ -383,12 +384,12 @@ class SimulatorDialog(QDialog):
             with open(str(file_path[0]), "w") as f:
                 f.write(log_string)
         except Exception as e:
-            QMessageBox.critical(self, "Error saving log", e.args[0])
+            QMessageBox.critical(self, tr("Error saving log"), e.args[0])
 
     @pyqtSlot()
     def on_btn_save_transcript_clicked(self):
         file_path = QFileDialog.getSaveFileName(
-            self, "Save transcript", "", "Text file (*.txt)"
+            self, tr("Save transcript"), "", "Text file (*.txt)"
         )
 
         if file_path[0] == "":
@@ -400,7 +401,7 @@ class SimulatorDialog(QDialog):
             with open(str(file_path[0]), "w") as f:
                 f.write(transcript)
         except Exception as e:
-            QMessageBox.critical(self, "Error saving transcript", e.args[0])
+            QMessageBox.critical(self, tr("Error saving transcript"), e.args[0])
 
     @pyqtSlot()
     def on_btn_start_stop_clicked(self):

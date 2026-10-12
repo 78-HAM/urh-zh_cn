@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import array
 
 from PyQt6.QtCore import QAbstractTableModel, Qt, QModelIndex, pyqtSignal
@@ -53,7 +54,7 @@ class LabelValueTableModel(QAbstractTableModel):
             return None
 
         if expected_checksum is not None:
-            data += " (should be {0})".format(
+            data += tr(" (should be {0})").format(
                 util.convert_bits_to_string(expected_checksum, lbl.display_format_index)
             )
 
@@ -93,7 +94,7 @@ class LabelValueTableModel(QAbstractTableModel):
             role == Qt.ItemDataRole.DisplayRole
             and orientation == Qt.Orientation.Horizontal
         ):
-            return self.header_labels[section]
+            return tr(self.header_labels[section])
         elif role == Qt.ItemDataRole.TextAlignmentRole:
             return Qt.AlignmentFlag.AlignLeft
 

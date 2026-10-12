@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import numpy as np
 from PyQt6.QtCore import pyqtSignal, pyqtSlot
 from PyQt6.QtGui import QIcon
@@ -29,7 +30,7 @@ class ReceiveDialog(SendRecvDialog):
         self.already_saved = True
         self.recorded_files = []
 
-        self.setWindowTitle("Record Signal")
+        self.setWindowTitle(tr("Record Signal"))
         self.setWindowIcon(QIcon.fromTheme("media-record"))
 
         # set really in on_device_started

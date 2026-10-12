@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 from PyQt6.QtGui import QUndoCommand
@@ -11,7 +12,7 @@ class Clear(QUndoCommand):
         self.proto_analyzer_container = proto_analyzer_container
         self.orig_messages = copy.deepcopy(self.proto_analyzer_container.messages)
 
-        self.setText("Clear Generator Table")
+        self.setText(tr("Clear Generator Table"))
 
     def redo(self):
         self.proto_analyzer_container.clear()

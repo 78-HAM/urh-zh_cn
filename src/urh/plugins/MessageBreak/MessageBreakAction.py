@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 from PyQt6.QtGui import QUndoCommand
@@ -14,7 +15,7 @@ class MessageBreakAction(QUndoCommand):
         self.pos = pos
         self.orig_messages = copy.deepcopy(proto_analyzer.messages)
 
-        self.setText("Break message behind selection")
+        self.setText(tr("Break message behind selection"))
 
     def redo(self):
         message = self.proto_analyzer.messages[self.msg_nr]

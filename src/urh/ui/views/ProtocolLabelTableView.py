@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QKeySequence, QIcon, QAction, QActionGroup
 from PyQt6.QtWidgets import QTableView, QMenu
@@ -11,7 +12,7 @@ class ProtocolLabelTableView(QTableView):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.delete_action = QAction("Delete selected labels", self)
+        self.delete_action = QAction(tr("Delete selected labels"), self)
         self.delete_action.setShortcut(QKeySequence.StandardKey.Delete)
         self.delete_action.setIcon(QIcon.fromTheme("edit-delete"))
         self.delete_action.setShortcutContext(

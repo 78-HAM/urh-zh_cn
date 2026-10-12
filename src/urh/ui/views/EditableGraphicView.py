@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import Qt, pyqtSlot, pyqtSignal
 from PyQt6.QtGui import QIcon, QKeySequence, QAction, QActionGroup, QUndoStack
 from PyQt6.QtWidgets import QMenu
@@ -198,7 +199,7 @@ class EditableGraphicView(ZoomableGraphicView):
         if len(selected_messages) > 0 and self.participants_assign_enabled:
             participant_group = QActionGroup(self)
             participant_menu = menu.addMenu("Participant")
-            none_participant_action = participant_menu.addAction("None")
+            none_participant_action = participant_menu.addAction(tr("None"))
             none_participant_action.setCheckable(True)
             none_participant_action.setActionGroup(participant_group)
             none_participant_action.triggered.connect(
@@ -237,7 +238,7 @@ class EditableGraphicView(ZoomableGraphicView):
             menu.addAction(self.save_as_action)
         elif self.scene_type == 1:
             menu.addSeparator()
-            export_demod_action = menu.addAction("Export demodulated...")
+            export_demod_action = menu.addAction(tr("Export demodulated..."))
             export_demod_action.triggered.connect(self.export_demodulated_clicked.emit)
 
             menu.addAction(self.show_symbol_legend_action)

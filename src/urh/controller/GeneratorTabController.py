@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import locale
 
 import numpy
@@ -299,7 +300,7 @@ class GeneratorTabController(QWidget):
         mod_type = mod.modulation_type
         self.ui.lModTypeValue.setText(mod_type)
 
-        self.ui.lParamCaption.setText(mod.parameter_type_str)
+        self.ui.lParamCaption.setText(tr(mod.parameter_type_str))
         self.ui.labelParameterValues.setText(mod.parameters_string)
         self.ui.labelBitsPerSymbol.setText(str(mod.bits_per_symbol))
 
@@ -641,7 +642,7 @@ class GeneratorTabController(QWidget):
     def refresh_estimated_time(self):
         c = self.table_model.protocol
         if c.num_messages == 0:
-            self.ui.lEstimatedTime.setText("Estimated Time: ")
+            self.ui.lEstimatedTime.setText(tr("Estimated Time: "))
             return
 
         avg_msg_len = numpy.mean([len(msg.encoded_bits) for msg in c.messages])
@@ -847,7 +848,7 @@ class GeneratorTabController(QWidget):
 
     @pyqtSlot()
     def on_network_sdr_sending_stop_requested(self):
-        self.ui.btnNetworkSDRSend.setToolTip("Stopping sending")
+        self.ui.btnNetworkSDRSend.setToolTip(tr("Stopping sending"))
         self.ui.btnNetworkSDRSend.setEnabled(False)
 
     @pyqtSlot(int)

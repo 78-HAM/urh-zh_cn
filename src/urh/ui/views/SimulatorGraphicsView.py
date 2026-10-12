@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 from PyQt6.QtCore import Qt, pyqtSlot, pyqtSignal
@@ -226,7 +227,7 @@ class SimulatorGraphicsView(QGraphicsView):
     def create_context_menu(self):
         menu = QMenu()
 
-        add_message_action = menu.addAction("Add empty message...")
+        add_message_action = menu.addAction(tr("Add empty message..."))
         add_message_action.triggered.connect(self.on_add_message_action_triggered)
 
         message_type_menu = menu.addMenu("Add message with type...")
@@ -236,17 +237,17 @@ class SimulatorGraphicsView(QGraphicsView):
             action.setData(message_type)
             action.triggered.connect(self.on_add_message_action_triggered)
 
-        add_rule_action = menu.addAction("Add rule")
+        add_rule_action = menu.addAction(tr("Add rule"))
         add_rule_action.triggered.connect(self.on_add_rule_action_triggered)
 
         action_menu = menu.addMenu("Add action")
-        add_goto_action = action_menu.addAction("Goto")
+        add_goto_action = action_menu.addAction(tr("Goto"))
         add_goto_action.triggered.connect(self.on_add_goto_action_triggered)
-        add_sleep_action = action_menu.addAction("Sleep")
+        add_sleep_action = action_menu.addAction(tr("Sleep"))
         add_sleep_action.triggered.connect(self.on_add_sleep_action_triggered)
-        add_counter_action = action_menu.addAction("Counter")
+        add_counter_action = action_menu.addAction(tr("Counter"))
         add_counter_action.triggered.connect(self.on_add_counter_action_triggered)
-        trigger_command_action = action_menu.addAction("Trigger command")
+        trigger_command_action = action_menu.addAction(tr("Trigger command"))
         trigger_command_action.triggered.connect(
             self.on_trigger_command_action_triggered
         )
@@ -254,13 +255,13 @@ class SimulatorGraphicsView(QGraphicsView):
         if isinstance(self.context_menu_item, RuleConditionItem):
             menu.addSeparator()
 
-            add_else_if_cond_action = menu.addAction("Add else if block")
+            add_else_if_cond_action = menu.addAction(tr("Add else if block"))
             add_else_if_cond_action.triggered.connect(
                 self.on_add_else_if_cond_action_triggered
             )
 
             if not self.context_menu_item.parentItem().has_else_condition:
-                add_else_cond_action = menu.addAction("Add else block")
+                add_else_cond_action = menu.addAction(tr("Add else block"))
                 add_else_cond_action.triggered.connect(
                     self.on_add_else_cond_action_triggered
                 )
@@ -332,12 +333,12 @@ class SimulatorGraphicsView(QGraphicsView):
                 pa.triggered.connect(self.on_destination_action_triggered)
 
             if self.context_menu_item.destination != self.scene().broadcast_part:
-                swap_part_action = menu.addAction("Swap source and destination")
+                swap_part_action = menu.addAction(tr("Swap source and destination"))
                 swap_part_action.triggered.connect(self.on_swap_part_action_triggered)
                 swap_part_action.setIcon(QIcon.fromTheme("object-flip-horizontal"))
 
             pause_action = menu.addAction(
-                "Set subsequent pause ({} samples)".format(
+                tr("Set subsequent pause ({} samples)").format(
                     self.context_menu_item.model_item.pause
                 )
             )
@@ -346,7 +347,7 @@ class SimulatorGraphicsView(QGraphicsView):
         menu.addSeparator()
 
         if len(self.scene().get_all_message_items()) > 1:
-            consolidate_messages_action = menu.addAction("Consolidate messages")
+            consolidate_messages_action = menu.addAction(tr("Consolidate messages"))
             consolidate_messages_action.triggered.connect(
                 self.on_consolidate_messages_action_triggered
             )
@@ -355,7 +356,7 @@ class SimulatorGraphicsView(QGraphicsView):
             [item for item in self.scene().items() if isinstance(item, GraphicsItem)]
         ):
             # menu.addAction(self.select_all_action)
-            clear_all_action = menu.addAction("Clear all")
+            clear_all_action = menu.addAction(tr("Clear all"))
             clear_all_action.triggered.connect(self.on_clear_all_action_triggered)
             clear_all_action.setIcon(QIcon.fromTheme("edit-clear"))
 

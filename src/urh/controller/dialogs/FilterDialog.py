@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSlot, pyqtSignal, Qt
 from PyQt6.QtWidgets import QDialog
 
@@ -81,7 +82,9 @@ class FilterDialog(QDialog):
         elif len(dsp_filter.taps) != self.ui.spinBoxNumTaps.value():
             self.ui.lineEditCustomTaps.setStyleSheet("background: yellow")
             self.ui.lineEditCustomTaps.setToolTip(
-                "The number of the filter taps does not match the configured number of taps. I will use your configured filter taps."
+                tr(
+                    "The number of the filter taps does not match the configured number of taps. I will use your configured filter taps."
+                )
             )
         else:
             self.ui.lineEditCustomTaps.setStyleSheet("")

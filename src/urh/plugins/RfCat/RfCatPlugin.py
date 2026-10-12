@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import os
 import time
 from subprocess import PIPE, Popen
@@ -94,10 +95,10 @@ class RfCatPlugin(SDRPlugin):
 
     def enable_or_disable_send_button(self, rfcat_executable):
         if self.is_rfcat_executable(rfcat_executable):
-            self.settings_frame.info.setText("Info: Executable can be opened.")
+            self.settings_frame.info.setText(tr("Info: Executable can be opened."))
         else:
             self.settings_frame.info.setText(
-                "Info: Executable cannot be opened! Disabling send button."
+                tr("Info: Executable cannot be opened! Disabling send button.")
             )
             logger.debug("RfCat executable cannot be opened! Disabling send button.")
 
@@ -244,7 +245,7 @@ class RfCatPlugin(SDRPlugin):
                 else:
                     self.is_sending = False
                     Errors.generic_error(
-                        "Could not connect to {0}:{1}".format(
+                        tr("Could not connect to {0}:{1}").format(
                             self.client_ip, self.client_port
                         ),
                         msg=error,

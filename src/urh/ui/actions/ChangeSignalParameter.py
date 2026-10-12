@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 from PyQt6.QtGui import QUndoCommand
@@ -40,8 +41,11 @@ class ChangeSignalParameter(QUndoCommand):
         signal_name = signal.name[:10] + "..." if len(signal.name) > 10 else signal.name
 
         self.setText(
-            ("change {0} of {1} from {2:" + fmt2 + "} to {3:" + fmt3 + "}").format(
-                parameter_name, signal_name, self.orig_value, parameter_value
+            tr("Change {0} of {1} from {2} to {3}").format(
+                tr(parameter_name),
+                signal_name,
+                format(self.orig_value, fmt2),
+                format(parameter_value, fmt3),
             )
         )
 

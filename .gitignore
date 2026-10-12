@@ -54,3 +54,15 @@ src/urh/URHProject.xml
 src/urh/dev/gr/scripts/top_block.py
 
 misc/*
+
+# Local build and release output
+*.pyd
+pyinstaller/
+urh_build/
+urh_debug_build/
+urh_cli_build/
+urh.spec
+urh_debug.spec
+urh_cli.spec
+src/urh/dev/native/lib/shared/
+windrivers.zip

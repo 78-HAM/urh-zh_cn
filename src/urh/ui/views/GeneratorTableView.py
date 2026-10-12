@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import Qt, QRect, pyqtSignal, pyqtSlot
 from PyQt6.QtGui import (
     QDragMoveEvent,
@@ -185,7 +186,7 @@ class GeneratorTableView(TableView):
     def create_context_menu(self) -> QMenu:
         menu = super().create_context_menu()
 
-        add_message_action = menu.addAction("Add empty message...")
+        add_message_action = menu.addAction(tr("Add empty message..."))
         add_message_action.setIcon(QIcon.fromTheme("edit-table-insert-row-below"))
         add_message_action.triggered.connect(self.on_add_message_action_triggered)
 
@@ -193,14 +194,14 @@ class GeneratorTableView(TableView):
             menu.addAction(self.copy_action)
 
         if self.model().row_count > 0:
-            duplicate_action = menu.addAction("Duplicate selected lines")
+            duplicate_action = menu.addAction(tr("Duplicate selected lines"))
             duplicate_action.setIcon(QIcon.fromTheme("edit-table-insert-row-under"))
             duplicate_action.triggered.connect(self.on_duplicate_action_triggered)
 
             self._add_insert_column_menu(menu)
 
             menu.addSeparator()
-            clear_action = menu.addAction("Clear table")
+            clear_action = menu.addAction(tr("Clear table"))
             clear_action.triggered.connect(self.on_clear_action_triggered)
             clear_action.setIcon(QIcon.fromTheme("edit-clear"))
 
@@ -231,7 +232,7 @@ class GeneratorTableView(TableView):
 
             menu.addSeparator()
             de_bruijn_action = menu.addAction(
-                "Generate De Bruijn Sequence from Selection"
+                tr("Generate De Bruijn Sequence from Selection")
             )
             de_bruijn_action.triggered.connect(self.on_de_bruijn_action_triggered)
 

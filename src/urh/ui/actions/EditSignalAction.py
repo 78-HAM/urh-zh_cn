@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 
 import numpy as np
@@ -62,7 +63,7 @@ class EditSignalAction(QUndoCommand):
         self.orig_qad_part = None
 
         if self.mode == EditAction.crop:
-            self.setText("Crop Signal")
+            self.setText(tr("Crop Signal"))
             self.pre_crop_data = self.signal.iq_array[0 : self.start]
             self.post_crop_data = self.signal.iq_array[self.end :]
             if self.cache_qad:
@@ -70,21 +71,21 @@ class EditSignalAction(QUndoCommand):
                 self.post_crop_qad = self.signal._qad[self.end :]
         elif self.mode == EditAction.mute or self.mode == EditAction.filter:
             if self.mode == EditAction.mute:
-                self.setText("Mute Signal")
+                self.setText(tr("Mute Signal"))
             elif self.mode == EditAction.filter:
-                self.setText("Filter Signal")
+                self.setText(tr("Filter Signal"))
             self.orig_data_part = copy.copy(self.signal.iq_array[self.start : self.end])
             if self.cache_qad and self.signal._qad is not None:
                 self.orig_qad_part = copy.copy(self.signal._qad[self.start : self.end])
         elif self.mode == EditAction.delete:
-            self.setText("Delete Range")
+            self.setText(tr("Delete Range"))
             self.orig_data_part = self.signal.iq_array[self.start : self.end]
             if self.cache_qad and self.signal._qad is not None:
                 self.orig_qad_part = self.signal._qad[self.start : self.end]
         elif self.mode == EditAction.paste:
-            self.setText("Paste")
+            self.setText(tr("Paste"))
         elif self.mode == EditAction.insert:
-            self.setText("insert sine wave")
+            self.setText(tr("insert sine wave"))
 
         self.orig_parameter_cache = copy.deepcopy(self.signal.parameter_cache)
         self.signal_was_changed = self.signal.changed

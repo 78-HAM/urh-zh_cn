@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSlot, Qt, QItemSelection, QItemSelectionModel
 from PyQt6.QtGui import QKeySequence, QIcon, QContextMenuEvent, QAction
 from PyQt6.QtWidgets import QTableView, QMenu
@@ -11,7 +12,7 @@ class ParticipantTableView(QTableView):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.remove_action = QAction("Remove selected participants", self)
+        self.remove_action = QAction(tr("Remove selected participants"), self)
         self.remove_action.setShortcut(QKeySequence.StandardKey.Delete)
         self.remove_action.setIcon(QIcon.fromTheme("list-remove"))
         self.remove_action.setShortcutContext(

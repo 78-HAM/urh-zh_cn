@@ -1,137 +1,96 @@
-![URH image](https://raw.githubusercontent.com/jopohl/urh/master/data/icons/banner.png)
+# Universal Radio Hacker 简体中文版
 
-[![CI](https://github.com/jopohl/urh/actions/workflows/ci.yml/badge.svg)](https://github.com/jopohl/urh/actions/workflows/ci.yml)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-black)](https://github.com/psf/black)
-[![PyPI version](https://badge.fury.io/py/urh.svg)](https://badge.fury.io/py/urh)
-[![Packaging status](https://repology.org/badge/tiny-repos/urh.svg)](https://repology.org/project/urh/versions)
- [![Blackhat Arsenal 2017](https://rawgit.com/toolswatch/badges/master/arsenal/usa/2017.svg)](http://www.toolswatch.org/2017/06/the-black-hat-arsenal-usa-2017-phenomenal-line-up-announced/)
- [![Blackhat Arsenal 2018](https://rawgit.com/toolswatch/badges/master/arsenal/europe/2018.svg)](http://www.toolswatch.org/2018/09/black-hat-arsenal-europe-2018-lineup-announced/)
+![URH](https://raw.githubusercontent.com/jopohl/urh/master/data/icons/banner.png)
 
+[![构建与发布](https://github.com/78-HAM/urh-zh_cn/actions/workflows/ci.yml/badge.svg)](https://github.com/78-HAM/urh-zh_cn/actions/workflows/ci.yml)
+[下载简体中文版](https://github.com/78-HAM/urh-zh_cn/releases/latest) · [English / 上游说明](README.en.md) · [上游项目](https://github.com/jopohl/urh)
 
-The Universal Radio Hacker (URH) is a complete suite for wireless protocol investigation with native support for [many](https://github.com/jopohl/urh/wiki/Supported-devices) common __Software Defined Radios__.
-URH allows __easy demodulation__ of signals combined with an [automatic](https://dl.acm.org/doi/10.1145/3375894.3375896) detection of modulation parameters making it a breeze to identify the bits and bytes that fly over the air. 
-As data often gets _encoded_ before transmission, URH offers __customizable decodings__ to crack even sophisticated encodings like CC1101 data whitening.
-When it comes to __protocol reverse-engineering__, URH is helpful in two ways. You can either manually assign protocol fields and message types or let URH __automatically infer protocol fields__ with a [rule-based intelligence](https://www.usenix.org/conference/woot19/presentation/pohl).
-Finally, URH entails a __fuzzing component__ aimed at stateless protocols and a __simulation environment__ for stateful attacks.
+URH 是无线协议分析工具，支持多种软件定义无线电（SDR）。它可以录制、解调和分析信号，识别协议字段，配置解码流程，生成和发送信号，以及执行协议模糊测试和仿真。
 
-### Getting started
-In order to get started
- - view the [installation instructions](#Installation) on this page,
- - download the [official userguide (PDF)](https://github.com/jopohl/urh/releases/download/v2.0.0/userguide.pdf), 
- - watch the [demonstration videos (YouTube)](https://www.youtube.com/watch?v=kuubkTDAxwA&index=1&list=PLlKjreY6G-1EKKBs9sucMdk8PwzcFuIPB),
- - check out the [wiki](https://github.com/jopohl/urh/wiki) for more information such as supported devices or
- - read some [articles about URH](#Articles) for inspiration.
+本项目基于上游 **2.10.0**，默认显示简体中文。翻译资源覆盖主界面、右键菜单、选项、收发、解码、校验和、调制、模糊测试与协议仿真窗口。调制缩写、设备型号、协议数据和解码内部标识保留原值，兼容已有工程。
 
-If you like URH, please :star: this repository and [join our Slack channel](https://join.slack.com/t/stralsundsecurity/shared_invite/enQtMjEwOTIxNzMzODc3LTk3NmE4MGVjYjEyYTMzYTdmN2RlNzUzYzg0NTNjNTQ2ODBkMzI3MDZlOWY3MjE4YjBkNTM4ZjJlNTJlZmJhNDg). We appreciate your support!
+## 下载与安装
 
-### Citing URH
-We encourage researchers working with URH to cite [this](https://www.usenix.org/conference/woot18/presentation/pohl) WOOT'18 paper or directly use the following BibTeX entry.
- 
- <details>
- <summary> <b>URH BibTeX entry for your research paper</b> </summary>
- 
-  ```bibtex
-@inproceedings {220562,
-author = {Johannes Pohl and Andreas Noack},
-title = {Universal Radio Hacker: A Suite for Analyzing and Attacking Stateful Wireless Protocols},
-booktitle = {12th {USENIX} Workshop on Offensive Technologies ({WOOT} 18)},
-year = {2018},
-address = {Baltimore, MD},
-url = {https://www.usenix.org/conference/woot18/presentation/pohl},
-publisher = {{USENIX} Association},
-}
+在 [Releases](https://github.com/78-HAM/urh-zh_cn/releases/latest) 下载对应系统的文件：
+
+| 文件 | 用途 |
+| --- | --- |
+| `URH-zh_CN-2.10.0-windows-x64-setup.exe` | Windows 64 位安装包 |
+| `URH-zh_CN-2.10.0-windows-x64-portable.zip` | Windows 便携版，解压后运行 `urh/urh.exe` |
+| `URH-zh_CN-2.10.0-linux-x64.tar.gz` | Linux x64 便携版，解压后运行 `urh/urh` |
+| `URH-zh_CN-2.10.0-macos-arm64.dmg` | Apple Silicon Mac 版，拖到 Applications 安装 |
+| `*.whl` | Python 3.12 对应平台的安装包 |
+| `*-source.tar.gz` | 源码包 |
+| `SHA256SUMS.txt` | 文件 SHA-256 校验值 |
+
+Windows 包含上游 SDR 驱动库。Linux 包在 Ubuntu 22.04 上构建，需要兼容的系统及图形库；macOS 包适用于 Apple Silicon。访问实际硬件时，可能还需安装 USB 驱动或配置 [udev 规则](https://github.com/jopohl/urh/wiki/SDR-udev-rules)。未对安装包进行代码签名。
+
+Python wheel 安装示例：
+
+```sh
+python -m pip install ./urh-2.10.0-cp312-cp312-win_amd64.whl
+urh
 ```
 
- </details> 
+通过 PyPI 安装 `urh` 得到的是上游版本；本项目的中文包从本仓库 Release 下载。
 
-## Installation
-URH runs on Windows, Linux and macOS. See below for OS specific installation instructions.
+## 切换语言
 
-### Windows
- On Windows, URH can be installed with its [Installer](https://github.com/jopohl/urh/releases). No further dependencies are required.
- 
-If you get an error about missing ```api-ms-win-crt-runtime-l1-1-0.dll```, run Windows Update or directly install [KB2999226](https://support.microsoft.com/en-us/help/2999226/update-for-universal-c-runtime-in-windows).
+打开 **编辑 → 选项 → 视图 → 界面语言**，选择简体中文或 English，重启生效。
 
-### Linux
-#### Installation with pipx
-URH is available on [PyPi](https://pypi.org/project/urh/) so you can install it, for example, with [pipx](https://pypa.github.io/pipx/): 
-```bash 
-pipx install urh
-``` 
-This is the recommended way to install URH on Linux because it comes with __all native extensions__ precompiled.
+也可临时设置环境变量，不修改保存的偏好：
 
-In order to access your SDR as non-root user, install the according __udev rules__. You can find them [in the wiki](https://github.com/jopohl/urh/wiki/SDR-udev-rules).
-
-#### Install via Package Manager
-URH is included in the repositories of many linux distributions such as __Arch Linux__, __Gentoo__, __Fedora__, __openSUSE__ or __NixOS__. There is also a package for __FreeBSD__.  If available, simply use your package manager to install URH.
-
-__Note__: For native support, you must install the according ```-dev``` package(s) of your SDR(s) such as ```hackrf-dev``` __before__ installing URH.
-
-#### Docker Images
-The official URH docker image is available [here](https://hub.docker.com/r/jopohl/urh/). It has all native backends included and ready to operate.
-
-### macOS
-#### Using DMG
-
-It is recommended to use __at least macOS 13__ when using the DMG available [here](https://github.com/jopohl/urh/releases).
-
-#### With brew
-URH is available as a [homebrew formula](https://formulae.brew.sh/formula/urh) so you can install it with
-```commandline
-brew install urh
+```powershell
+$env:URH_LANGUAGE = 'en'
+urh
 ```
 
-### Running from source (OS-agnostic)
-#### Without installation
-
-To execute the Universal Radio Hacker without installation, just run:
-```commandline
-git clone https://github.com/jopohl/urh/
-cd urh/src/urh
-PYTHONPATH=.. ./main.py
+```sh
+URH_LANGUAGE=zh_CN urh
 ```
 
-Note, before first usage the C++ extensions will be built.
+## 从源码运行
 
-#### Installing from source
+需要 Python 3.9 或更高版本及 C/C++ 编译器；发布构建固定使用 Python 3.12。Windows 使用 Visual Studio C++ Build Tools，Linux 使用 GCC，macOS 使用 Xcode Command Line Tools。
 
-To install URH from source you need to have ```python-setuptools``` installed. You can get them with ```python3 -m pip install setuptools```. 
-Once the setuptools are installed execute: 
-```commandline
-git clone https://github.com/jopohl/urh/
-cd urh
-python setup.py install
+```sh
+git clone https://github.com/78-HAM/urh-zh_cn.git
+cd urh-zh_cn
+python -m venv venv
+# Windows：venv\Scripts\activate
+# Linux/macOS：source venv/bin/activate
+python -m pip install -r data/release-requirements.txt
+python setup.py build_ext --inplace
+python -m pip install --no-build-isolation .
+urh
 ```
 
-And start the application by typing ```urh``` in a terminal.
+## 翻译维护与验证
 
+翻译目录为 `src/urh/i18n/zh_CN.json`。Qt 在创建窗口之前加载翻译，未翻译的文字回退为英文；标准按钮使用 Qt 的中文资源。新增动态界面文案时用 `self.tr("原文")` 或 `urh.i18n.tr("原文")`，先翻译模板再填充变量。保持格式占位符、链接地址、文件扩展名和内部数据标识不变。
 
-## Articles
-### Hacking stuff with URH
-* [Hacking Burger Pagers](https://www.rtl-sdr.com/using-a-hackrf-to-reverse-engineer-and-control-restaurant-pagers/)
-* [Reverse-engineer and Clone a Remote Control](https://www.rtl-sdr.com/video-tutorial-using-universal-radio-hacker-an-rtl-sdr-and-a-microcontroller-to-clone-433-mhz-remotes/)
-* [Reverse-engineering Weather Station RF Signals](https://www.rtl-sdr.com/tag/universal-radio-hacker/)
-* [Reverse-engineering Wireless Blinds](https://www.rtl-sdr.com/reverse-engineering-wireless-blinds-with-an-rtl-sdr-and-controlling-them-with-amazon-alexa/)
-* [Attacking Logitech Wireless Presenters (German Article)](https://www.heise.de/security/meldung/Wireless-Presenter-von-Logitech-und-Inateck-anfaellig-fuer-Angriffe-ueber-Funk-4439795.html)
-* [Attacking Wireless Keyboards](https://threatpost.com/fujitsu-wireless-keyboard-unpatched-flaws/149477/)
-* [Reverse-engineering a 433MHz Remote-controlled Power Socket for use with Arduino](http://www.ignorantofthings.com/2018/11/reverse-engineering-433mhz-remote.html)
+```sh
+python data/check_translations.py
+```
 
-### General presentations and tutorials on URH
-* [Hackaday Article](https://hackaday.com/2017/02/23/universal-radio-hacker/)
-* [RTL-SDR.com Article](https://www.rtl-sdr.com/reverse-engineering-signals-universal-radio-hacker-software/)
-* [Short Tutorial on URH with LimeSDR Mini](https://www.crowdsupply.com/lime-micro/limesdr-mini/updates/investigating-wireless-protocols-with-universal-radio-hacker)
-* [Brute-forcing a RF Device: a Step-by-step Guide](https://pandwarf.com/news/brute-forcing-a-new-device-a-step-by-step-guide/)
-* [Hacking wireless sockets like a NOOB](https://olof-astrand.medium.com/hacking-wireless-sockets-like-a-noob-b57d4b4812d5)
+该命令校验翻译占位符和链接，并在离屏环境检查中文主窗口、语言设置、校验和切换、调制和时频图功能，不需要 SDR 硬件。
 
-## External decodings
-See [wiki](https://github.com/jopohl/urh/wiki/External-decodings) for a list of external decodings provided by our community! Thanks for that!
+## Actions 构建与发布
 
-## Screenshots
-### Get the data out of raw signals
-![Interpretation phase](http://i.imgur.com/Wy17Zv3.png)
+[Build and Release 工作流](https://github.com/78-HAM/urh-zh_cn/actions/workflows/ci.yml) 在 master 推送、PR 或手动触发时，编译 Windows x64、Linux x64 和 macOS ARM64 的原生扩展及独立应用，执行中文界面检查与回归测试，上传构建产物。
 
-### Keep an overview even on complex protocols
- ![Analysis phase](http://i.imgur.com/ubAL3pE.png)
+推送格式为 `v*-zh.*` 的标签（例如 `v2.10.0-zh.1`）后，所有平台构建及检查通过才会自动发布 GitHub Release，并附带安装包、便携包、wheel、源码和 SHA-256 校验值。
 
-### Record and send signals
- ![Record](http://i.imgur.com/BfQpg23.png)
+```sh
+git tag v2.10.0-zh.1
+git push origin v2.10.0-zh.1
+```
+
+## 文档与许可
+
+- [上游用户手册 PDF](https://github.com/jopohl/urh/releases/download/v2.0.0/userguide.pdf)
+- [支持的设备](https://github.com/jopohl/urh/wiki/Supported-devices)
+- [上游 Wiki](https://github.com/jopohl/urh/wiki)
+- [中文版本问题反馈](https://github.com/78-HAM/urh-zh_cn/issues)
+
+URH 由 Johannes Pohl 和 Andreas Noack 等上游贡献者开发；本仓库提供简体中文适配与构建发布。沿用 [GPL-3.0 许可](LICENSE)，引用信息见 [上游说明](README.en.md)。

@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import os
 import shutil
 import tarfile
@@ -67,10 +68,10 @@ def get_open_dialog(
 
     if directory_mode:
         dialog.setFileMode(QFileDialog.FileMode.Directory)
-        dialog.setWindowTitle("Open Folder")
+        dialog.setWindowTitle(tr("Open Folder"))
     else:
         dialog.setFileMode(QFileDialog.FileMode.ExistingFiles)
-        dialog.setWindowTitle("Open Files")
+        dialog.setWindowTitle(tr("Open Files"))
         if name_filter == "full":
             name_filter = (
                 __get__name_filter_for_signals()
@@ -125,9 +126,9 @@ def ask_save_file_name(
         name_filter = EVERYTHING_FILE_FILTER
 
     filename = None
-    dialog = QFileDialog(directory=RECENT_PATH, caption=caption, filter=name_filter)
+    dialog = QFileDialog(directory=RECENT_PATH, caption=tr(caption), filter=name_filter)
     dialog.setFileMode(QFileDialog.FileMode.AnyFile)
-    dialog.setLabelText(QFileDialog.DialogLabel.Accept, "Save")
+    dialog.setLabelText(QFileDialog.DialogLabel.Accept, tr("Save"))
     dialog.setAcceptMode(QFileDialog.AcceptMode.AcceptSave)
 
     if selected_name_filter is not None:
@@ -283,7 +284,7 @@ def uncompress_archives(file_names, temp_dir):
 def get_directory():
     directory = QFileDialog.getExistingDirectory(
         None,
-        "Choose Directory",
+        tr("Choose Directory"),
         QDir.homePath(),
         QFileDialog.Option.ShowDirsOnly | QFileDialog.Option.DontResolveSymlinks,
     )

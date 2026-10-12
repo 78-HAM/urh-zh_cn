@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 import os
 
@@ -550,8 +551,8 @@ class MainController(QMainWindow):
                     w.close()
                 except wave.Error as e:
                     Errors.generic_error(
-                        "Unsupported WAV type",
-                        "Only uncompressed WAVs (PCM) are supported.",
+                        tr("Unsupported WAV type"),
+                        tr("Only uncompressed WAVs (PCM) are supported."),
                         str(e),
                     )
                     continue

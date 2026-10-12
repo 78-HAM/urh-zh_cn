@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import QModelIndex, QAbstractItemModel, Qt
 from PyQt6.QtWidgets import (
     QStyledItemDelegate,
@@ -24,7 +25,7 @@ class ExternalProgramWidget(QWidget):
         self.line_edit_external_program = QLineEdit()
         self.line_edit_external_program.setCompleter(completer)
         self.line_edit_external_program.setPlaceholderText(
-            "Type in a path to external program."
+            tr("Type in a path to external program.")
         )
 
         self.layout = QHBoxLayout()
@@ -76,7 +77,7 @@ class ProtocolValueDelegate(QStyledItemDelegate):
 
         if lbl.value_type_index == 2:
             line_edit = ExpressionLineEdit(parent)
-            line_edit.setPlaceholderText("(item1.length + 3) ^ 0x12")
+            line_edit.setPlaceholderText(tr("(item1.length + 3) ^ 0x12"))
             line_edit.setCompleter(
                 QCompleter(self.controller.completer_model, line_edit)
             )

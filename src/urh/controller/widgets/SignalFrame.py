@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import math
 import time
 from multiprocessing import Process, Array
@@ -131,7 +132,7 @@ class SignalFrame(QFrame):
             self.apply_filter_to_selection_only.setCheckable(True)
             self.apply_filter_to_selection_only.setChecked(False)
             self.configure_filter_action = self.filter_menu.addAction(
-                "Configure filter..."
+                tr("Configure filter...")
             )
             self.configure_filter_action.setIcon(QIcon.fromTheme("configure"))
             self.configure_filter_action.triggered.connect(
@@ -155,11 +156,11 @@ class SignalFrame(QFrame):
 
             if self.signal.wav_mode:
                 if self.signal.already_demodulated:
-                    self.ui.lSignalTyp.setText("Demodulated (1-channel *.wav)")
+                    self.ui.lSignalTyp.setText(tr("Demodulated (1-channel *.wav)"))
                 else:
-                    self.ui.lSignalTyp.setText("Signal (*.wav)")
+                    self.ui.lSignalTyp.setText(tr("Signal (*.wav)"))
             else:
-                self.ui.lSignalTyp.setText("Complex Signal")
+                self.ui.lSignalTyp.setText(tr("Complex Signal"))
 
             self.ui.lineEditSignalName.setText(self.signal.name)
             self.ui.lSamplesInView.setText("{0:,}".format(self.signal.num_samples))
@@ -202,7 +203,7 @@ class SignalFrame(QFrame):
                 self.ui.lSignalViewText.hide()
 
         else:
-            self.ui.lSignalTyp.setText("Protocol")
+            self.ui.lSignalTyp.setText(tr("Protocol"))
             self.set_empty_frame_visibilities()
             self.create_connects()
 
@@ -449,7 +450,7 @@ class SignalFrame(QFrame):
                 if power > 0:
                     power_str = Formatter.big_value_with_suffix(10 * np.log10(power), 2)
 
-            self.ui.labelRSSI.setText("{} dBm".format(power_str))
+            self.ui.labelRSSI.setText(tr("{} dBm").format(power_str))
 
         except Exception as e:
             logger.exception(e)
@@ -481,7 +482,7 @@ class SignalFrame(QFrame):
             bw = (
                 num_samples / self.ui.gvSpectrogram.height_spectrogram
             ) * self.signal.sample_rate
-            self.ui.lDuration.setText(Formatter.big_value_with_suffix(bw) + "Hz")
+            self.ui.lDuration.setText(Formatter.big_value_with_suffix(bw) + tr("Hz"))
 
     def __set_duration(self):  # On Signal Sample Rate changed
         try:
@@ -538,7 +539,7 @@ class SignalFrame(QFrame):
 
     def set_filter_button_caption(self):
         self.ui.btnFilter.setText(
-            "Filter ({0})".format(self.dsp_filter.filter_type.value)
+            tr("Filter ({0})").format(tr(self.dsp_filter.filter_type.value))
         )
 
     def dragMoveEvent(self, event):
@@ -698,7 +699,7 @@ class SignalFrame(QFrame):
 
     def update_protocol(self):
         self.ui.txtEdProto.setEnabled(False)
-        self.ui.txtEdProto.setText("Demodulating...")
+        self.ui.txtEdProto.setText(tr("Demodulating..."))
         QApplication.processEvents()
 
         try:
@@ -830,7 +831,7 @@ class SignalFrame(QFrame):
 
     def __handle_graphic_view_zoomed(self, graphic_view):
         self.ui.lSamplesInView.setText(
-            "{0:n}".format(int(graphic_view.view_rect().width()))
+            tr("{0:n}").format(int(graphic_view.view_rect().width()))
         )
         self.ui.spinBoxXZoom.blockSignals(True)
         self.ui.spinBoxXZoom.setValue(
@@ -956,7 +957,7 @@ class SignalFrame(QFrame):
 
         self.__set_spectrogram_adjust_widgets_visibility()
 
-        if self.ui.cbSignalView.currentText().lower() == "spectrogram":
+        if self.ui.cbSignalView.currentIndex() == 2:
             self.ui.stackedWidget.setCurrentWidget(self.ui.pageSpectrogram)
             self.draw_spectrogram(show_full_scene=True)
             self.__set_selected_bandwidth()
@@ -1266,16 +1267,16 @@ class SignalFrame(QFrame):
     def __set_samples_in_view(self):
         if self.spectrogram_is_active:
             self.ui.lSamplesInView.setText(
-                "{0:n}".format(int(self.ui.gvSpectrogram.view_rect().width()))
+                tr("{0:n}").format(int(self.ui.gvSpectrogram.view_rect().width()))
             )
             self.ui.lSamplesTotal.setText(
-                "{0:n}".format(self.ui.gvSpectrogram.width_spectrogram)
+                tr("{0:n}").format(self.ui.gvSpectrogram.width_spectrogram)
             )
         else:
             self.ui.lSamplesInView.setText(
-                "{0:n}".format(int(self.ui.gvSignal.view_rect().width()))
+                tr("{0:n}").format(int(self.ui.gvSignal.view_rect().width()))
             )
-            self.ui.lSamplesTotal.setText("{0:n}".format(self.signal.num_samples))
+            self.ui.lSamplesTotal.setText(tr("{0:n}").format(self.signal.num_samples))
 
     def refresh_signal(self, draw_full_signal=False):
         self.draw_signal(draw_full_signal)

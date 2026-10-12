@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSlot, Qt
 from PyQt6.QtWidgets import QDialog, QLabel, QRadioButton
 
@@ -29,7 +30,7 @@ class FilterBandwidthDialog(QDialog):
                     None,
                 )
                 if key is not None and name.endswith("Bandwidth"):
-                    item.setText("{0:n}".format(Filter.BANDWIDTHS[key]))
+                    item.setText(tr("{0:n}").format(Filter.BANDWIDTHS[key]))
                 elif key is not None and name.endswith("KernelLength"):
                     item.setText(
                         str(

@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import QTimer, pyqtSlot
 from PyQt6.QtGui import QWheelEvent, QIcon, QPixmap, QResizeEvent
 from PyQt6.QtWidgets import QGraphicsScene
@@ -20,7 +21,7 @@ class SpectrumDialogController(SendRecvDialog):
         self.hide_receive_ui_items()
         self.hide_send_ui_items()
 
-        self.setWindowTitle("Spectrum Analyzer")
+        self.setWindowTitle(tr("Spectrum Analyzer"))
         self.setWindowIcon(QIcon(":/icons/icons/spectrum.svg"))
         self.ui.btnStart.setToolTip(self.tr("Start"))
         self.ui.btnStop.setToolTip(self.tr("Stop"))

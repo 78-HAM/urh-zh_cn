@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import os
 
 from PyQt6.QtCore import QModelIndex, pyqtSlot, QFileInfo, pyqtSignal, QUrl
@@ -50,7 +51,7 @@ class DirectoryTreeView(QTreeView):
             QMessageBox.information(
                 self,
                 self.tr("Remove"),
-                self.tr("Failed to remove {0}".format(model.fileName(index))),
+                self.tr("Failed to remove {0}").format(model.fileName(index)),
             )
 
     def create_context_menu(self) -> QMenu:
@@ -64,23 +65,23 @@ class DirectoryTreeView(QTreeView):
                 if os.path.isfile(
                     os.path.join(current_index_info.filePath(), settings.PROJECT_FILE)
                 ):
-                    open_action = menu.addAction("Open project")
+                    open_action = menu.addAction(tr("Open project"))
                     open_action.setIcon(QIcon(":/icons/icons/appicon.png"))
                 else:
-                    open_action = menu.addAction("Open folder")
+                    open_action = menu.addAction(tr("Open folder"))
                     open_action.setIcon(QIcon.fromTheme("folder-open"))
                 open_action.triggered.connect(self.on_open_action_triggered)
 
-        new_dir_action = menu.addAction("New folder")
+        new_dir_action = menu.addAction(tr("New folder"))
         new_dir_action.setIcon(QIcon.fromTheme("folder"))
         new_dir_action.triggered.connect(self.create_directory)
 
-        del_action = menu.addAction("Delete")
+        del_action = menu.addAction(tr("Delete"))
         del_action.setIcon(QIcon.fromTheme("edit-delete"))
         del_action.triggered.connect(self.remove)
 
         menu.addSeparator()
-        open_in_explorer_action = menu.addAction("Open in file manager...")
+        open_in_explorer_action = menu.addAction(tr("Open in file manager..."))
         open_in_explorer_action.triggered.connect(
             self.on_open_explorer_action_triggered
         )

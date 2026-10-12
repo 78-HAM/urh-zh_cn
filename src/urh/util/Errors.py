@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import sys
 import traceback
 
@@ -27,7 +28,7 @@ class Errors:
         w = QWidget()
         msg = "Error: <b>" + str(exception).replace("\n", "<br>") + "</b><hr>"
         msg += traceback.format_exc().replace("\n", "<br>")
-        QMessageBox.critical(w, "An error occurred", msg)
+        QMessageBox.critical(w, tr("An error occurred"), msg)
 
     @staticmethod
     def no_device():
@@ -52,7 +53,7 @@ class Errors:
         QMessageBox.critical(
             w,
             w.tr("Write error"),
-            w.tr("There was a error writing this file! {0}".format(msg)),
+            w.tr("There was a error writing this file! {0}").format(msg),
         )
 
     @staticmethod
@@ -119,7 +120,7 @@ class Errors:
     def invalid_path(path: str):
         w = QWidget()
         QMessageBox.critical(
-            w, w.tr("Invalid Path"), w.tr("The path {0} is invalid.".format(path))
+            w, w.tr("Invalid Path"), w.tr("The path {0} is invalid.").format(path)
         )
 
     @staticmethod
@@ -127,9 +128,11 @@ class Errors:
         w = QWidget()
         QMessageBox.information(
             w,
-            "This feature is elsewhere",
-            "You can send your data with the network SDR by "
-            "using the button below the generator table.",
+            tr("This feature is elsewhere"),
+            tr(
+                "You can send your data with the network SDR by "
+                "using the button below the generator table."
+            ),
         )
 
     @staticmethod

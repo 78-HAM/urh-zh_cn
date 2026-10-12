@@ -3,24 +3,25 @@
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{8A0E36A6-DE56-46B8-BCC3-C16D1BC759CC}
-AppName=Universal Radio Hacker
+AppName=Universal Radio Hacker 简体中文版
 AppVersion={#MyAppVersion}
 VersionInfoVersion={#MyAppVersion}
 ArchitecturesInstallIn64BitMode=x64
 UninstallDisplayName=Universal Radio Hacker
-AppPublisher=Johannes Pohl
-AppPublisherURL=https://github.com/jopohl/urh
-AppSupportURL=https://github.com/jopohl/urh
-AppUpdatesURL=https://github.com/jopohl/urh
+AppPublisher=78-HAM (upstream: Johannes Pohl)
+AppPublisherURL=https://github.com/78-HAM/urh-zh_cn
+AppSupportURL=https://github.com/78-HAM/urh-zh_cn/issues
+AppUpdatesURL=https://github.com/78-HAM/urh-zh_cn/releases
 DefaultDirName={commonpf}\Universal Radio Hacker
 DisableProgramGroupPage=yes
 LicenseFile=..\LICENSE
 OutputDir=..\dist
-OutputBaseFilename=Universal.Radio.Hacker-{#MyAppVersion}-{#Arch}
+OutputBaseFilename=URH-zh_CN-{#MyAppVersion}-windows-{#Arch}-setup
 Compression=lzma2/ultra
 SolidCompression=yes
 
 [Languages]
+Name: "chinesesimp"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]

@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import csv
 
 import os
@@ -208,7 +209,9 @@ class CSVImportDialog(QDialog):
 
     @pyqtSlot()
     def on_btn_add_separator_clicked(self):
-        sep, ok = QInputDialog.getText(self, "Enter Separator", "Separator:", text=",")
+        sep, ok = QInputDialog.getText(
+            self, tr("Enter Separator"), tr("Separator:"), text=","
+        )
         if ok and sep not in (
             self.ui.comboBoxCSVSeparator.itemText(i)
             for i in range(self.ui.comboBoxCSVSeparator.count())
@@ -217,7 +220,8 @@ class CSVImportDialog(QDialog):
                 self.ui.comboBoxCSVSeparator.addItem(sep)
             else:
                 Errors.generic_error(
-                    "Invalid Separator", "Separator must be exactly one character."
+                    tr("Invalid Separator"),
+                    tr("Separator must be exactly one character."),
                 )
 
     @pyqtSlot(int)

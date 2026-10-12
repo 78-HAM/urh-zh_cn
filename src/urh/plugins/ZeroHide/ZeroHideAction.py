@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtGui import QUndoCommand
 
 from urh.signalprocessing.ProtocolAnalyzer import ProtocolAnalyzer
@@ -16,7 +17,7 @@ class ZeroHideAction(QUndoCommand):
         self.following_zeros = following_zeros
         self.viewtype = view
 
-        self.setText("Hide zero sequences >= " + str(self.following_zeros))
+        self.setText(tr("Hide zero sequences >= ") + str(self.following_zeros))
 
         self.zero_hide_offsets = zero_hide_offsets
 

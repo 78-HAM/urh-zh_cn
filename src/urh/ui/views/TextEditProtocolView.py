@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSignal, Qt, pyqtSlot
 from PyQt6.QtGui import QIcon, QKeyEvent, QContextMenuEvent, QTextCursor, QActionGroup
 from PyQt6.QtWidgets import QTextEdit, QMenu
@@ -70,17 +71,17 @@ class TextEditProtocolView(QTextEdit):
         menu = QMenu(self)
         view_group = QActionGroup(self)
         view_menu = menu.addMenu("View")
-        bit_action = view_menu.addAction("Bits")
+        bit_action = view_menu.addAction(tr("Bits"))
         bit_action.setCheckable(True)
         bit_action.setActionGroup(view_group)
         bit_action.triggered.connect(self.on_bit_action_triggered)
 
-        hex_action = view_menu.addAction("Hex")
+        hex_action = view_menu.addAction(tr("Hex"))
         hex_action.setCheckable(True)
         hex_action.setActionGroup(view_group)
         hex_action.triggered.connect(self.on_hex_action_triggered)
 
-        ascii_action = view_menu.addAction("ASCII")
+        ascii_action = view_menu.addAction(tr("ASCII"))
         ascii_action.setCheckable(True)
         ascii_action.setActionGroup(view_group)
         ascii_action.triggered.connect(self.on_ascii_action_triggered)
@@ -110,7 +111,7 @@ class TextEditProtocolView(QTextEdit):
 
             participant_group = QActionGroup(self)
             participant_menu = menu.addMenu("Participant")
-            none_participant_action = participant_menu.addAction("None")
+            none_participant_action = participant_menu.addAction(tr("None"))
             none_participant_action.setCheckable(True)
             none_participant_action.setActionGroup(participant_group)
             none_participant_action.triggered.connect(
@@ -132,14 +133,14 @@ class TextEditProtocolView(QTextEdit):
                 self.participant_actions[pa] = participant
                 pa.triggered.connect(self.on_participant_action_triggered)
 
-        zoom_to_bits_action = menu.addAction("Zoom to bits in signal")
+        zoom_to_bits_action = menu.addAction(tr("Zoom to bits in signal"))
         zoom_to_bits_action.triggered.connect(self.on_zoom_to_bits_action_triggered)
         zoom_to_bits_action.setIcon(QIcon.fromTheme("zoom-in"))
 
         menu.addSeparator()
 
         line_wrap_action = menu.addAction(
-            "Linewrap (may take a while for long protocols)"
+            tr("Linewrap (may take a while for long protocols)")
         )
         line_wrap_action.setCheckable(True)
         line_wrap = self.lineWrapMode() == QTextEdit.LineWrapMode.WidgetWidth

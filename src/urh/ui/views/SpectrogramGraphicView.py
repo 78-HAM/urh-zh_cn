@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import numpy as np
 from PyQt6.QtCore import pyqtSlot, pyqtSignal
 from PyQt6.QtGui import QIcon, QKeySequence
@@ -54,7 +55,7 @@ class SpectrogramGraphicView(ZoomableGraphicView):
 
         if self.something_is_selected:
             filter_bw = Filter.read_configured_filter_bw()
-            text = self.tr("Apply bandpass filter (filter bw={0:n})".format(filter_bw))
+            text = self.tr("Apply bandpass filter (filter bw={0:n})").format(filter_bw)
             create_from_frequency_selection = menu.addAction(text)
             create_from_frequency_selection.triggered.connect(
                 self.on_create_from_frequency_selection_triggered
@@ -71,7 +72,7 @@ class SpectrogramGraphicView(ZoomableGraphicView):
                 cancel_button = "Esc"
 
             create_from_frequency_selection.setToolTip(
-                "You can abort filtering with <b>{}</b>.".format(cancel_button)
+                tr("You can abort filtering with <b>{}</b>.").format(cancel_button)
             )
 
         configure_filter_bw = menu.addAction(self.tr("Configure filter bandwidth..."))
@@ -80,7 +81,7 @@ class SpectrogramGraphicView(ZoomableGraphicView):
 
         menu.addSeparator()
 
-        export_fta_action = menu.addAction("Export spectrogram...")
+        export_fta_action = menu.addAction(tr("Export spectrogram..."))
         export_fta_action.triggered.connect(self.on_export_fta_action_triggered)
 
         return menu

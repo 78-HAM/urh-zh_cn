@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import os
 import xml.etree.ElementTree as ET
 
@@ -239,9 +240,11 @@ class ProjectManager(QObject):
             if ask_for_new_project:
                 reply = QMessageBox.question(
                     self.main_controller,
-                    "Project File",
-                    "Do you want to create a Project File for this folder?\n"
-                    "If you chose No, you can do it later via File->Convert Folder to Project.",
+                    tr("Project File"),
+                    tr(
+                        "Do you want to create a Project File for this folder?\n"
+                        "If you chose No, you can do it later via File->Convert Folder to Project."
+                    ),
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                 )
 
@@ -311,7 +314,7 @@ class ProjectManager(QObject):
         else:
             self.main_controller.expand_project_tab_bar()
 
-        self.main_controller.setWindowTitle("Universal Radio Hacker [" + path + "]")
+        self.main_controller.setWindowTitle(tr("Universal Radio Hacker [") + path + "]")
 
         self.project_loaded_status_changed.emit(self.project_loaded)
         self.project_updated.emit()

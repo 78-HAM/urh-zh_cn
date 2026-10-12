@@ -129,6 +129,9 @@ def main():
         os.environ["QT_QPA_PLATFORMTHEME"] = "fusion"
 
     app = QApplication(["URH"] + sys.argv[1:])
+    from urh.i18n import install_translators
+
+    install_translators(app)
     app.setWindowIcon(QIcon(":/icons/icons/appicon.png"))
 
     try:
@@ -191,6 +194,18 @@ def main():
     settings.SEND_INDICATOR_COLOR = selection_color
 
     main_window = MainController()
+    if "translation-smoke" in sys.argv[1:]:
+        from urh.i18n import tr
+
+        assert tr("Search") == "搜索"
+        assert app.translate("QPlatformTheme", "Cancel") == "取消"
+        assert [main_window.ui.tabWidget.tabText(i) for i in range(4)] == [
+            "信号解析",
+            "协议分析",
+            "信号生成",
+            "协议仿真",
+        ]
+        print("Packaged Chinese UI checks passed.", flush=True)
     # allow usage of prange (OpenMP) in Processes
     multiprocessing.set_start_method("spawn")
 
@@ -205,7 +220,7 @@ def main():
     else:
         main_window.showMaximized()
 
-    if "autoclose" in sys.argv[1:]:
+    if "autoclose" in sys.argv[1:] or "translation-smoke" in sys.argv[1:]:
         # Autoclose after 1 second, this is useful for automated testing
         timer = QTimer()
         timer.timeout.connect(app.quit)

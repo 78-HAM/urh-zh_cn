@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import array
 import copy
 from collections import OrderedDict
@@ -66,7 +67,7 @@ class ChecksumWidget(QWidget):
                 role == Qt.ItemDataRole.DisplayRole
                 and orientation == Qt.Orientation.Horizontal
             ):
-                return self.header_labels[section]
+                return tr(self.header_labels[section])
             return super().headerData(section, orientation, role)
 
         def data(self, index: QModelIndex, role=Qt.ItemDataRole.DisplayRole):
@@ -172,7 +173,7 @@ class ChecksumWidget(QWidget):
         )
         self.ui.comboBoxCategory.clear()
         for _, member in self.checksum_label.Category.__members__.items():
-            self.ui.comboBoxCategory.addItem(member.value)
+            self.ui.comboBoxCategory.addItem(tr(member.value))
         self.set_ui_for_category()
         self.setFocus()
         self.create_connects()
@@ -251,7 +252,9 @@ class ChecksumWidget(QWidget):
                 self.ui.radioButtonWSPCRC8.setChecked(True)
 
     def set_ui_for_category(self):
-        self.ui.comboBoxCategory.setCurrentText(self.checksum_label.category.value)
+        self.ui.comboBoxCategory.setCurrentIndex(
+            list(self.checksum_label.Category).index(self.checksum_label.category)
+        )
         if self.checksum_label.category == self.checksum_label.Category.generic:
             self.ui.stackedWidget.setCurrentWidget(self.ui.page_crc)
         elif self.checksum_label.category == self.checksum_label.Category.wsp:
@@ -294,12 +297,14 @@ class ChecksumWidget(QWidget):
     def __set_crc_info_label(self):
         crc = self.checksum_label.checksum  # type: GenericCRC
         self.ui.label_crc_info.setText(
-            "<b>CRC Summary:</b><ul>"
-            "<li>Polynomial = {}<>"
-            "<li>Length of checksum = {} bit</li>"
-            "<li>start value length = {} bit</li>"
-            "<li>final XOR length = {} bit</li>"
-            "</ul>".format(
+            tr(
+                "<b>CRC Summary:</b><ul>"
+                "<li>Polynomial = {}<>"
+                "<li>Length of checksum = {} bit</li>"
+                "<li>start value length = {} bit</li>"
+                "<li>final XOR length = {} bit</li>"
+                "</ul>"
+            ).format(
                 crc.polynomial_to_html,
                 crc.poly_order - 1,
                 len(crc.start_value),
@@ -431,9 +436,7 @@ class ChecksumWidget(QWidget):
 
     @pyqtSlot(int)
     def on_combobox_category_current_index_changed(self, index: int):
-        self.checksum_label.category = self.checksum_label.Category(
-            self.ui.comboBoxCategory.currentText()
-        )
+        self.checksum_label.category = list(self.checksum_label.Category)[index]
         self.set_ui_for_category()
 
     @pyqtSlot()

@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import copy
 import os
 
@@ -78,7 +79,7 @@ class DecoderDialog(QDialog):
         self.ui.additionalfunctions.addItem(settings.DECODING_CUT)
 
         # Presets
-        self.setWindowTitle("Decoding")
+        self.setWindowTitle(tr("Decoding"))
         self.setWindowIcon(QIcon(":/icons/icons/decoding.svg"))
         self.setAcceptDrops(True)
         self.inpt_text = "10010110"
@@ -88,7 +89,7 @@ class DecoderDialog(QDialog):
 
         self.ui.substitution.setColumnCount(2)
         self.ui.substitution.setRowCount(self.ui.substitution_rows.value())
-        self.ui.substitution.setHorizontalHeaderLabels(["From", "To"])
+        self.ui.substitution.setHorizontalHeaderLabels([tr("From"), tr("To")])
         self.ui.substitution.setColumnWidth(0, 190)
         self.ui.substitution.setColumnWidth(1, 190)
 
@@ -496,23 +497,23 @@ class DecoderDialog(QDialog):
         # Determine selected element
         if mode == 0:
             element = self.ui.basefunctions.currentItem().text()
-            txt += element + ":\n"
+            txt += tr(element) + ":\n"
             self.last_selected_item = element
             self.ui.btnAddtoYourDecoding.show()
         elif mode == 1:
             element = self.ui.additionalfunctions.currentItem().text()
-            txt += element + ":\n"
+            txt += tr(element) + ":\n"
             self.last_selected_item = element
             self.ui.btnAddtoYourDecoding.show()
         elif mode == 2:
             decoderEdit = True
-            txt = "## In Your Decoding ##\n\n"
+            txt = tr("## In Your Decoding ##\n\n")
             element = self.ui.decoderchain.currentItem().text()
             if element[-1] == " ":
                 elementname = element[0:-1]
             else:
                 elementname = element
-            txt += elementname + ":\n"
+            txt += tr(elementname) + ":\n"
             self.active_message = element
             self.ui.btnAddtoYourDecoding.hide()
 
@@ -522,13 +523,13 @@ class DecoderDialog(QDialog):
 
         # Write info text and show options
         if settings.DECODING_EDGE in element:
-            txt += (
+            txt += tr(
                 "Trigger on signal edge, i.e. the transition between low and high.\n"
                 "- Low to High (01) is 1\n"
                 "- High to Low (10) is 0"
             )
         elif settings.DECODING_SUBSTITUTION in element:
-            txt += (
+            txt += tr(
                 "A set of manual defined signal sequences FROM (e.g. 110, 100) is replaced by another set of "
                 "sequences TO (e.g. 01, 10). Note that all FROM entries must have the same length, otherwise "
                 "the result is unpredictable! (For TX: all TO entries must have the same length)"
@@ -566,7 +567,7 @@ class DecoderDialog(QDialog):
             self.ui.substitution_rows.setEnabled(decoderEdit)
 
         elif settings.DECODING_EXTERNAL in element:
-            txt += (
+            txt += tr(
                 "The decoding (and encoding) process is delegated to external programs or scripts via parameter.\n"
                 "Example: Given the signal 10010110, your program is called as './decoder 10010110'. Your program "
                 "computes and prints a corresponding set of 0s and 1s which is fed back into the decoding process. "
@@ -595,22 +596,24 @@ class DecoderDialog(QDialog):
             self.ui.btnChooseEncoder.setEnabled(decoderEdit)
 
         elif settings.DECODING_INVERT in element:
-            txt += "All bits are inverted, i.e. 0->1 and 1->0."
+            txt += tr("All bits are inverted, i.e. 0->1 and 1->0.")
         elif settings.DECODING_ENOCEAN in element:
-            txt += "Remove Wireless Short-Packet (WSP) encoding that is used by EnOcean standard."
+            txt += tr(
+                "Remove Wireless Short-Packet (WSP) encoding that is used by EnOcean standard."
+            )
         elif settings.DECODING_DIFFERENTIAL in element:
-            txt += (
+            txt += tr(
                 "Every transition between low and high (0->1 or 1->0) becomes 1, no transition (0->0 or 1->1) remains 0.\n"
                 "The first signal bit is regarded as start value and directly copied.\n"
                 "Example: 0011 becomes 0010 [0|(0->0)|(0->1)|(1->1)]."
             )
         elif settings.DECODING_BITORDER in element:
-            txt += (
+            txt += tr(
                 "Every byte (8 bit) is reversed, i.e. the order of the bits 01234567 (e.g. least significant bit first) "
                 "is changed to 76543210 (e.g. most significant bit first)."
             )
         elif settings.DECODING_REDUNDANCY in element:
-            txt += (
+            txt += tr(
                 "If the source signal always has multiple redundant bits for one bit (e.g. 1111=1, 0000=0), the "
                 "redundancy is removed here. You have to define the number of redundant bits."
             )
@@ -629,7 +632,7 @@ class DecoderDialog(QDialog):
                     self.ui.multiple.setValue(2)
             self.ui.multiple.setEnabled(decoderEdit)
         elif settings.DECODING_MORSE in element:
-            txt += (
+            txt += tr(
                 "If the signal is a morse code, e.g. 00111001001110011100, where information are "
                 "transported with long and short sequences of 1 (0 just for padding), then this "
                 "decoding evaluates those sequences (Example output: 1011)."
@@ -665,7 +668,7 @@ class DecoderDialog(QDialog):
             self.ui.morse_high.setEnabled(decoderEdit)
             self.ui.morse_wait.setEnabled(decoderEdit)
         elif settings.DECODING_CARRIER in element:
-            txt += (
+            txt += tr(
                 "A carrier is a fixed pattern like 1_1_1_1 where the actual data lies in between, e.g. 1a1a1b1. This "
                 "function extracts the actual bit information (here: aab) from the signal at '_'/'.' positions.\n"
                 "Examples:\n"
@@ -687,7 +690,7 @@ class DecoderDialog(QDialog):
                     self.ui.carrier.setText("1_")
             self.ui.carrier.setEnabled(decoderEdit)
         elif settings.DECODING_DATAWHITENING in element:
-            txt += (
+            txt += tr(
                 "Texas Instruments CC110x chips allow a data whitening that is applied before sending the signals to HF. "
                 "After a preamble (1010...) there is a fixed 16/32 bit sync word. The following data (incl. 16 bit CRC) "
                 "is masked (XOR) with the output of a LFSR.\n"
@@ -731,7 +734,7 @@ class DecoderDialog(QDialog):
             self.ui.datawhitening_overwrite_crc.setEnabled(decoderEdit)
 
         elif settings.DECODING_CUT in element:
-            txt += (
+            txt += tr(
                 "This function enables you to cut data from your messages, in order to shorten or align them for a "
                 "better view. Note that this decoding does NOT support encoding, because cut data is gone!\n"
                 "Example:\n"

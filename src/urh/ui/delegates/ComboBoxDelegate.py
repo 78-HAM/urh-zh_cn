@@ -1,5 +1,7 @@
 import sys
 
+from urh.i18n import tr
+
 from PyQt6.QtCore import QModelIndex, Qt, QAbstractItemModel, pyqtSlot, QRectF
 from PyQt6.QtGui import QImage, QPainter, QColor, QPixmap
 from PyQt6.QtWidgets import (
@@ -62,7 +64,9 @@ class ComboBoxDelegate(QStyledItemDelegate):
             # Ensure text entries are visible with windows combo boxes
             editor.setMinimumHeight(self.sizeHint(option, index).height() + 10)
 
-        editor.addItems(self.items)
+        editor.addItems(
+            [tr(item) for item in self.items] if self.return_index else self.items
+        )
 
         if self.is_editable:
             editor.setEditable(True)

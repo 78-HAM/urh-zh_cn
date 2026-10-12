@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import locale
 import math
 import os
@@ -299,7 +300,7 @@ class CompareFrameController(QWidget):
                 locale.format_string("%d (%.02f%%) %s", (errors, percent, state))
             )
         else:
-            self.ui.lDecodingErrorsValue.setText("No message selected")
+            self.ui.lDecodingErrorsValue.setText(tr("No message selected"))
 
     def create_connects(self):
         self.protocol_undo_stack.indexChanged.connect(self.on_undo_stack_index_changed)
@@ -456,10 +457,10 @@ class CompareFrameController(QWidget):
                 if len(messages) > 10:
                     reply = QMessageBox.question(
                         self,
-                        "Set decoding",
-                        "Do you want to apply the selected decoding to {} messages?".format(
-                            len(messages)
-                        ),
+                        tr("Set decoding"),
+                        tr(
+                            "Do you want to apply the selected decoding to {} messages?"
+                        ).format(len(messages)),
                         QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                     )
                     if reply != QMessageBox.StandardButton.Yes:
@@ -1085,10 +1086,12 @@ class CompareFrameController(QWidget):
             if not msg.decoder.is_nrz:
                 reply = QMessageBox.question(
                     self,
-                    "Saving of protocol",
-                    "You want to save this protocol with an encoding different from NRZ.\n"
-                    "This may cause loss of information if you load it again.\n\n"
-                    "Save anyway?",
+                    tr("Saving of protocol"),
+                    tr(
+                        "You want to save this protocol with an encoding different from NRZ.\n"
+                        "This may cause loss of information if you load it again.\n\n"
+                        "Save anyway?"
+                    ),
                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                 )
                 if reply != QMessageBox.StandardButton.Yes:
@@ -1109,8 +1112,10 @@ class CompareFrameController(QWidget):
         elif filename.endswith(".pcapng"):
             data_link_type, ok = QInputDialog.getInt(
                 self,
-                "Link type",
-                "Interface Link Type to use (probably one between DLT_USER0-DLT_USER15 (147-162)):",
+                tr("Link type"),
+                tr(
+                    "Interface Link Type to use (probably one between DLT_USER0-DLT_USER15 (147-162)):"
+                ),
                 147,
                 0,
                 65535,
@@ -1508,7 +1513,7 @@ class CompareFrameController(QWidget):
 
     @pyqtSlot()
     def on_search_action_triggered(self):
-        self.ui.btnSearchSelectFilter.setText("Search")
+        self.ui.btnSearchSelectFilter.setText(tr("Search"))
         self.ui.btnSearchSelectFilter.setIcon(QIcon.fromTheme("edit-find"))
         self.set_search_ui_visibility(True)
         self.ui.btnSearchSelectFilter.clicked.disconnect()
@@ -1516,7 +1521,7 @@ class CompareFrameController(QWidget):
 
     @pyqtSlot()
     def on_select_action_triggered(self):
-        self.ui.btnSearchSelectFilter.setText("Select all")
+        self.ui.btnSearchSelectFilter.setText(tr("Select all"))
         self.ui.btnSearchSelectFilter.setIcon(QIcon.fromTheme("edit-select-all"))
         self.set_search_ui_visibility(False)
         self.ui.btnSearchSelectFilter.clicked.disconnect()
@@ -1524,7 +1529,7 @@ class CompareFrameController(QWidget):
 
     @pyqtSlot()
     def on_filter_action_triggered(self):
-        self.ui.btnSearchSelectFilter.setText("Filter")
+        self.ui.btnSearchSelectFilter.setText(tr("Filter"))
         self.ui.btnSearchSelectFilter.setIcon(QIcon.fromTheme("view-filter"))
         self.set_search_ui_visibility(False)
         self.ui.btnSearchSelectFilter.clicked.disconnect()
@@ -1535,7 +1540,7 @@ class CompareFrameController(QWidget):
         def on_btn_search_select_filter_clicked():
             self.align_messages()
 
-        self.ui.btnSearchSelectFilter.setText("Align")
+        self.ui.btnSearchSelectFilter.setText(tr("Align"))
         self.ui.btnSearchSelectFilter.setIcon(QIcon.fromTheme("align-horizontal-left"))
         self.set_search_ui_visibility(False)
         self.ui.btnSearchSelectFilter.clicked.disconnect()
@@ -1684,7 +1689,7 @@ class CompareFrameController(QWidget):
             self.ui.lHexSelection.setText("")
             self.ui.lNumSelectedColumns.setText("0")
             self.ui.lblLabelValues.setText(
-                self.tr("Labels of {}".format(self.active_message_type.name))
+                self.tr("Labels of {}").format(self.active_message_type.name)
             )
             self.__set_decoding_error_label(message=None)
             self.updateUI(ignore_table_model=True, resize_table=False)
@@ -1753,7 +1758,7 @@ class CompareFrameController(QWidget):
                 locale.format_string("%.2f dBm", 10 * math.log10(message.rssi))
             )
         else:
-            self.ui.lblRSSI.setText("-\u221e dBm")
+            self.ui.lblRSSI.setText(tr("-\u221e dBm"))
         if isinstance(message.absolute_time, str):
             # For protocol files the abs time is the timestamp as string
             abs_time = message.absolute_time
@@ -1804,7 +1809,7 @@ class CompareFrameController(QWidget):
 
         self.active_message_type = self.proto_analyzer.message_types[row]
         self.ui.lblLabelValues.setText(
-            "Labels of {}".format(self.active_message_type.name)
+            tr("Labels of {}").format(self.active_message_type.name)
         )
         self.label_value_model.show_label_values = False
         self.label_value_model.update()
@@ -1866,8 +1871,8 @@ class CompareFrameController(QWidget):
 
     @pyqtSlot(str)
     def on_message_type_name_edited(self, new_name: str):
-        if self.ui.lblLabelValues.text().startswith("Labels of"):
-            self.ui.lblLabelValues.setText("Labels of {}".format(new_name))
+        if not self.label_value_model.show_label_values:
+            self.ui.lblLabelValues.setText(tr("Labels of {}").format(new_name))
 
     @pyqtSlot(int)
     def on_tab_bar_double_clicked(self, index: int):

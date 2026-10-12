@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSignal, pyqtSlot
 from PyQt6.QtGui import QContextMenuEvent, QFocusEvent, QAction
 from PyQt6.QtWidgets import QListWidget, QMenu
@@ -14,7 +15,7 @@ class GeneratorListWidget(QListWidget):
     def create_context_menu(self) -> QMenu:
         menu = QMenu()
         sel_indexes = [index.row() for index in self.selectedIndexes()]
-        edit_action = QAction("Edit", self)
+        edit_action = QAction(tr("Edit"), self)
         edit_action.triggered.connect(self.on_edit_action_triggered)
         if len(sel_indexes) == 0:
             edit_action.setEnabled(False)
@@ -22,7 +23,7 @@ class GeneratorListWidget(QListWidget):
         menu.addAction(edit_action)
 
         if self.count() > 0:
-            edit_all_action = QAction("Edit all", self)
+            edit_all_action = QAction(tr("Edit all"), self)
             edit_all_action.triggered.connect(self.on_edit_all_action_triggered)
             menu.addAction(edit_all_action)
 

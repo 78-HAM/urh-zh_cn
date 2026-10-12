@@ -1,3 +1,5 @@
+from urh.i18n import tr
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSignal, Qt, pyqtSlot
 from PyQt6.QtGui import QContextMenuEvent, QKeySequence, QIcon, QAction
 from PyQt6.QtWidgets import QAbstractItemView, QMenu, QTableView
@@ -15,7 +17,7 @@ class MessageTypeTableView(QTableView):
         self.setDragEnabled(True)
         self.setDropIndicatorShown(True)
 
-        self.del_rows_action = QAction("Delete selected message types", self)
+        self.del_rows_action = QAction(tr("Delete selected message types"), self)
         self.del_rows_action.setShortcut(QKeySequence.StandardKey.Delete)
         self.del_rows_action.setIcon(QIcon.fromTheme("edit-delete"))
         self.del_rows_action.setShortcutContext(
@@ -55,7 +57,7 @@ class MessageTypeTableView(QTableView):
 
         menu.addSeparator()
         update_message_types_action = menu.addAction(
-            "Update automatically assigned message types"
+            tr("Update automatically assigned message types")
         )
         update_message_types_action.setIcon(QIcon.fromTheme("view-refresh"))
         update_message_types_action.triggered.connect(
@@ -63,9 +65,9 @@ class MessageTypeTableView(QTableView):
         )
 
         menu.addSeparator()
-        show_all_action = menu.addAction("Show all message types")
+        show_all_action = menu.addAction(tr("Show all message types"))
         show_all_action.triggered.connect(self.on_show_all_action_triggered)
-        hide_all_action = menu.addAction("Hide all message types")
+        hide_all_action = menu.addAction(tr("Hide all message types"))
         hide_all_action.triggered.connect(self.on_hide_all_action_triggered)
 
         return menu

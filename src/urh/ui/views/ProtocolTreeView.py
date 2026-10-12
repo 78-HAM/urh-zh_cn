@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import QItemSelection, pyqtSlot
 from PyQt6.QtCore import pyqtSignal, QItemSelectionModel, Qt
 from PyQt6.QtGui import QContextMenuEvent, QDropEvent, QIcon
@@ -70,7 +71,7 @@ class ProtocolTreeView(QTreeView):
 
         if item != self.model().rootItem:
             menu.addSeparator()
-            sort_group_elements_action = menu.addAction("Sort Group Elements")
+            sort_group_elements_action = menu.addAction(tr("Sort Group Elements"))
             sort_group_elements_action.setIcon(QIcon.fromTheme("view-sort-ascending"))
             sort_group_elements_action.triggered.connect(
                 self.on_sort_group_elements_action_triggered

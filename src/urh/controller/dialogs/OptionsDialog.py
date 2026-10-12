@@ -1,3 +1,4 @@
+from urh.i18n import tr
 import os
 import subprocess
 import sys
@@ -22,6 +23,8 @@ from PyQt6.QtWidgets import (
     QHeaderView,
     QRadioButton,
     QFileDialog,
+    QComboBox,
+    QLabel,
 )
 
 from urh import settings, colormaps
@@ -66,7 +69,7 @@ class DeviceOptionsTableModel(QAbstractTableModel):
             role == Qt.ItemDataRole.DisplayRole
             and orientation == Qt.Orientation.Horizontal
         ):
-            return self.header_labels[section]
+            return tr(self.header_labels[section])
         return super().headerData(section, orientation, role)
 
     def get_device_at(self, index: int):
@@ -184,6 +187,26 @@ class OptionsDialog(QDialog):
 
         self.ui = Ui_DialogOptions()
         self.ui.setupUi(self)
+        from urh.i18n import SUPPORTED_LANGUAGES
+
+        language_layout = QHBoxLayout()
+        language_label = QLabel(self.tr("Language (requires restart):"), self)
+        self.language_combo = QComboBox(self)
+        self.language_combo.addItem("简体中文", "zh_CN")
+        self.language_combo.addItem("English", "en")
+        language = settings.read("language", "zh_CN")
+        self.language_combo.setCurrentIndex(
+            SUPPORTED_LANGUAGES.index(language)
+            if language in SUPPORTED_LANGUAGES
+            else 0
+        )
+        self.language_combo.currentIndexChanged.connect(
+            lambda: settings.write("language", self.language_combo.currentData())
+        )
+        language_label.setBuddy(self.language_combo)
+        language_layout.addWidget(language_label)
+        language_layout.addWidget(self.language_combo)
+        self.ui.verticalLayout.insertLayout(0, language_layout)
         self.setWindowFlags(Qt.WindowType.Window)
 
         self.device_options_model = DeviceOptionsTableModel(self.backend_handler, self)
@@ -366,15 +389,17 @@ class OptionsDialog(QDialog):
                 "background-color: lightgreen"
             )
             self.ui.lineEditGRPythonInterpreter.setToolTip(
-                "GNU Radio interface is working."
+                tr("GNU Radio interface is working.")
             )
         else:
             self.ui.lineEditGRPythonInterpreter.setStyleSheet(
                 "background-color: orange"
             )
             self.ui.lineEditGRPythonInterpreter.setToolTip(
-                "GNU Radio is not installed or incompatible with "
-                "the configured python interpreter."
+                tr(
+                    "GNU Radio is not installed or incompatible with "
+                    "the configured python interpreter."
+                )
             )
 
     def read_options(self):
@@ -598,7 +623,7 @@ class OptionsDialog(QDialog):
         num_dots = 1
         while p.poll() is None:
             self.ui.labelRebuildNativeStatus.setText(
-                self.tr("Rebuilding device extensions" + ". " * num_dots)
+                self.tr("Rebuilding device extensions") + ". " * num_dots
             )
             QApplication.processEvents()
             time.sleep(0.1)
@@ -612,8 +637,8 @@ class OptionsDialog(QDialog):
                     "<font color=green>"
                     "Rebuilt {0} device extensions. "
                     "</font>"
-                    "Please restart URH.".format(len(extensions))
-                )
+                    "Please restart URH."
+                ).format(len(extensions))
             )
         else:
             self.ui.labelRebuildNativeStatus.setText(
@@ -622,8 +647,8 @@ class OptionsDialog(QDialog):
                     "Failed to rebuild {0} device extensions. "
                     "</font>"
                     "Run URH as root (<b>sudo urh</b>) "
-                    "and try again.".format(len(extensions))
-                )
+                    "and try again."
+                ).format(len(extensions))
             )
 
         self.build_log = p.stdout.read().decode()

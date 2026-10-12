@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import QAbstractTableModel, Qt, QModelIndex
 
 from urh.signalprocessing.Ruleset import Ruleset, Rule
@@ -26,7 +27,7 @@ class RulesetTableModel(QAbstractTableModel):
             role == Qt.ItemDataRole.DisplayRole
             and orientation == Qt.Orientation.Horizontal
         ):
-            return self.header_labels[section]
+            return tr(self.header_labels[section])
         return super().headerData(section, orientation, role)
 
     def data(self, index: QModelIndex, role=Qt.ItemDataRole.DisplayRole):

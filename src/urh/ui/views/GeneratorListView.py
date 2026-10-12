@@ -1,3 +1,4 @@
+from urh.i18n import tr
 from PyQt6.QtCore import pyqtSignal, Qt, pyqtSlot
 from PyQt6.QtGui import QContextMenuEvent, QKeyEvent, QIcon
 from PyQt6.QtWidgets import QListView, QMenu
@@ -21,18 +22,18 @@ class GeneratorListView(QListView):
         if self.model().message is None or len(self.model().message.message_type) == 0:
             return menu
 
-        edit_action = menu.addAction("Edit fuzzing label")
+        edit_action = menu.addAction(tr("Edit fuzzing label"))
         edit_action.setIcon(QIcon.fromTheme("configure"))
         edit_action.triggered.connect(self.on_edit_action_triggered)
 
-        del_action = menu.addAction("Delete fuzzing label")
+        del_action = menu.addAction(tr("Delete fuzzing label"))
         del_action.setIcon(QIcon.fromTheme("edit-delete"))
         del_action.triggered.connect(self.on_delete_action_triggered)
 
         menu.addSeparator()
-        fuzz_all_action = menu.addAction("Check all")
+        fuzz_all_action = menu.addAction(tr("Check all"))
         fuzz_all_action.triggered.connect(self.model().fuzzAll)
-        unfuzz_all_action = menu.addAction("Uncheck all")
+        unfuzz_all_action = menu.addAction(tr("Uncheck all"))
         unfuzz_all_action.triggered.connect(self.model().unfuzzAll)
 
         return menu
